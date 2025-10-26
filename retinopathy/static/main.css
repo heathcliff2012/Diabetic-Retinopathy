@@ -64,3 +64,22 @@ input[type="submit"]:hover {
     background-color: #0056b3;
     transform:scale(1.01);
 }
+
+        
+        /* Style for the "dashboard" view to have a different background */
+        body.dashboard-bg {
+            background-color: #f8fafc; /* gray-50 */
+        }
+        /* Style for the "website" view */
+        body.website-bg {
+            background-color: #ffffff; /* white */
+        }
+        /* Custom styles for file upload dropzone */
+        .dropzone {
+            border: 2px dashed #cbd5e1; /* gray-300 */
+            transition: all 0.3s ease;
+        }
+        .dropzone.dragover {
+            border-color: #1E88E5; /* secondary.DEFAULT */
+            background-color: #E3F2FD; /* secondary.light */
+        }

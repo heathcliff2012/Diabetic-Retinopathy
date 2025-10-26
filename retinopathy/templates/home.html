@@ -87,7 +87,7 @@
 
                 <!-- Login Button & Mobile Menu Button -->
                 <div class="flex items-center">
-                    <a href="#" data-page="dashboard" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                    <a href="#" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
                         Clinician Login
                     </a>
                     <!-- Mobile Menu Button -->
@@ -111,7 +111,7 @@
                     <a href="#" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
                     <a href="#" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
                     <a href="#" data-page="contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Contact</a>
-                    <a href="#" data-page="dashboard" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
+                    <a href="#" data-page="patient-list" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
                 </div>
             </div>
         </nav>
@@ -272,6 +272,22 @@
                 </div>
             </section>
             
+            <!-- Add Patient Buttons Section -->
+            <section class="py-12 bg-gray-50 text-center">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-2xl font-semibold text-gray-800">Ready to get started?</h2>
+                    <p class="mt-3 text-gray-600">Access the secure clinician portal to manage patients or upload a new scan.</p>
+                    <div class="mt-8 flex flex-wrap justify-center gap-4">
+                        <a href="#" data-page="patient-list" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition shadow-lg">
+                            Patient List
+                        </a>
+                        <a href="#" data-page="scan-patient" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition shadow-lg">
+                            Scan Patient
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
             <!-- Trust Badges Section -->
             <!-- This section has been removed as requested -->
             
@@ -279,145 +295,15 @@
             <!-- This section has been removed as requested -->
 
             <!-- New Patient History Showcase Section -->
-            <section class="py-16 bg-gray-50">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-900">See the Platform in Action</h2>
-                        <p class="mt-4 text-lg text-gray-600">
-                            Our dashboard provides clear, immediate results. Here are some examples of anonymized analysis reports.
-                        </p>
-                    </div>
-                    
-                    <!-- Showcase Table -->
-                    <div class="mt-12 max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
-                        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
-                            <h3 class="text-lg font-medium text-gray-900">Example Analysis Reports</h3>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Case ID</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient Name</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sex</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diagnosis</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <!-- Mock Data Row 1 -->
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R. Kumar</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">M</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">58</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">Moderate DR</td>
-                                    </tr>
-                                    <!-- Mock Data Row 2 -->
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1023</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A. Patel</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">F</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">65</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">No DR</td>
-                                    </tr>
-                                    <!-- Mock Data Row 3 -->
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1022</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">S. Singh</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">M</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">47</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-700 font-medium">Mild DR</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 text-center">
-                            <p class="text-sm text-gray-500 italic">*Data shown is for demonstration purposes only and is entirely fictional.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-10 text-center">
-                         <a href="#" data-page="dashboard" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition shadow-lg">
-                            Go to Secure Dashboard
-                        </a>
-                    </div>
-                </div>
-            </section>
+            <!-- This section has been removed as requested -->
+            
         </div>
     </script>
     
     <!-- ========================================================== -->
 
-    <script type="text/template" id="template-technology">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="max-w-3xl mx-auto">
-                <span class="text-sm font-semibold text-primary uppercase tracking-wide">Our Technology</span>
-                <h1 class="mt-4 text-4xl font-extrabold text-gray-900">Deep Learning for Clinical Precision</h1>
-                <p class="mt-6 text-lg text-gray-600">
-                    Our platform is built on a state-of-the-art deep convolutional neural network (CNN) trained on one of the world's largest and most diverse datasets of retinal images. This ensures high accuracy and reduces bias.
-                </p>
-
-                <div class="mt-12">
-                    <h2 class="text-2xl font-bold text-gray-900">Detailed Workflow</h2>
-                    <p class="mt-4 text-gray-600">From upload to report, our system is optimized for speed, security, and accuracy.</p>
-                    <ul class="mt-6 space-y-6">
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">1</div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">Image Capture & Preprocessing</h3>
-                                <p class="mt-1 text-gray-600">Images are securely ingested via our web portal, mobile app, or API. Our system automatically checks for quality (e.g., focus, illumination) and preprocesses the image to normalize it for analysis.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">2</div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">AI Model Prediction</h3>
-                                <p class="mt-1 text-gray-600">The processed image is passed to our AI model, which identifies key biomarkers such as microaneurysms, hemorrhages, and exudates. It then outputs a multi-class prediction (e.g., No DR, Mild, Moderate, Severe, Proliferative).</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">3</div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-medium text-gray-900">Result Generation & Integration</h3>
-                                <p class="mt-1 text-gray-600">A clinician-friendly report is generated with the risk score, a visualization of the findings (heat-map), and recommendations. This report is delivered to the dashboard and can be automatically pushed to your EHR.</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="mt-12 bg-gray-50 p-6 rounded-lg">
-                    <h2 class="text-2xl font-bold text-gray-900">Data, Validation, and Security</h2>
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-900">Validation & Accuracy</h3>
-                            <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
-                                <li>Trained on 500,000+ images</li>
-                                <li>98.5% Sensitivity (Referable DR)</li>
-                                <li>99.1% Specificity</li>
-                                <li>Peer-reviewed in *The Lancet* (fictional)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-900">Security & Privacy</h3>
-                            <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
-                                <li>HIPAA & GDPR Compliant</li>
-                                <li>All data encrypted (AES-256)</li>
-                                <li>Data anonymization at ingest</li>
-                                <li>Role-based access control</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </script>
-    
-    <!-- ========================================================== -->
-
-    <script type="text/template" id="template-dashboard">
-        <!-- This template is for the logged-in user dashboard -->
-        <!-- It has a different layout from the public-facing website -->
+    <script type="text/template" id="template-scan-patient">
+        <!-- This template is for the 'Upload Scan' dashboard page -->
         <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
             
             <!-- Sidebar Navigation -->
@@ -427,19 +313,19 @@
                     <p class="text-sm text-gray-600">Welcome, Dr. Hemanth</p>
                 </div>
                 <nav class="mt-6">
-                    <a href="#" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
+                    <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
                         <span class="ml-3">Upload Scan</span>
                     </a>
-                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <a href="#" data-page="patient-list" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
                         <span class="ml-3">Patient History</span>
                     </a>
-                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <a href="#" data-page="dashboard-settings" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 12H7.5" /></svg>
                         <span class="ml-3">Settings</span>
                     </a>
-                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                    <a href="#" data-page="dashboard-help" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
                         <span class="ml-3">Help & Support</span>
                     </a>
@@ -475,9 +361,50 @@
                     </div>
                 </div>
 
+                <!-- Patient History Table (Removed from this page) -->
+            </main>
+        </div>
+    </script>
+    
+    <!-- ========================================================== -->
+    
+    <script type="text/template" id="template-patient-list">
+        <!-- This template is for the Patient History dashboard page -->
+        <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
+            
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 bg-white shadow-md hidden md:block">
+                <div class="py-4 px-6">
+                    <h2 class="text-lg font-semibold text-gray-900">Clinician Dashboard</h2>
+                    <p class="text-sm text-gray-600">Welcome, Dr. Hemanth</p>
+                </div>
+                <nav class="mt-6">
+                    <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                        <span class="ml-3">Upload Scan</span>
+                    </a>
+                    <a href="#" data-page="patient-list" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
+                        <span class="ml-3">Patient History</span>
+                    </a>
+                    <a href="#" data-page="dashboard-settings" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 12H7.5" /></svg>
+                        <span class="ml-3">Settings</span>
+                    </a>
+                    <a href="#" data-page="dashboard-help" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                        <span class="ml-3">Help & Support</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Dashboard Content -->
+            <main class="flex-1 overflow-y-auto p-8">
+                <h1 class="text-3xl font-bold text-gray-900">Patient History</h1>
+                <p class="mt-2 text-gray-600">Review recent scans and analysis reports.</p>
+
                 <!-- Patient History Table -->
-                <div class="mt-16">
-                    <h2 class="text-2xl font-bold text-gray-900">Recent Patient History</h2>
+                <div class="mt-8">
                     <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
@@ -576,8 +503,9 @@
             // --- Page Content Templates ---
             const pageTemplates = {
                 'home': document.getElementById('template-home').innerHTML,
-                'technology': document.getElementById('template-technology').innerHTML,
-                'dashboard': document.getElementById('template-dashboard').innerHTML,
+                // 'technology': document.getElementById('template-technology').innerHTML, // Removed this line - it was causing the error
+                'scan-patient': document.getElementById('template-scan-patient').innerHTML,
+                'patient-list': document.getElementById('template-patient-list').innerHTML,
             };
 
             // Titles for placeholder pages
@@ -587,8 +515,13 @@
                 'pricing': 'Pricing & Plans',
                 'contact': 'Contact Us & Demo Request',
                 'legal': 'Legal, Privacy & Terms',
+                'dashboard-settings': 'Dashboard Settings',
+                'dashboard-help': 'Help & Support',
             };
             const placeholderTemplate = document.getElementById('template-placeholder').innerHTML;
+
+            // List of all pages that use the dashboard layout
+            const dashboardPages = ['scan-patient', 'patient-list', 'dashboard-settings', 'dashboard-help'];
 
             // --- Page Rendering Function ---
             function renderPage(pageId) {
@@ -614,12 +547,16 @@
                 mobileMenuButton.querySelector('.hidden').classList.add('hidden'); // Hide close icon
 
                 // --- UI Logic for Specific Pages ---
-                if (pageId === 'dashboard') {
+                if (dashboardPages.includes(pageId)) {
                     // Switch to dashboard-specific styling
                     document.body.classList.remove('website-bg');
                     document.body.classList.add('dashboard-bg');
                     mainFooter.classList.add('hidden');
-                    setupDashboardListeners();
+                    
+                    // Only run the uploader script on the scan page
+                    if (pageId === 'scan-patient') {
+                        setupDashboardListeners();
+                    }
                 } else {
                     // Switch to website styling
                     document.body.classList.remove('dashboard-bg');
@@ -721,6 +658,11 @@
 
 </body>
 </html>
+
+
+
+
+
 
 
 
