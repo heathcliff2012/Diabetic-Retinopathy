@@ -7,3 +7,5 @@ Flask-Migrate
 flask_wtf
 wtforms
 wtforms.validators
+opencv-python
+numpy
