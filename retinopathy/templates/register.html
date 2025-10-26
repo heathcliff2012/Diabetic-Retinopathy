@@ -6,6 +6,17 @@
     <title>Register</title>
 </head>
 <body>
-    
+    <form action="/register" method="post">
+        <fieldset>
+            <legend>Register</legend>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </fieldset>
+        <input type="submit" value="Register">
+    </form>
 </body>
 </html>
