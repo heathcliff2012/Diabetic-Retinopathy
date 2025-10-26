@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/main.css">
     <title>Log In</title>
 </head>
 <body>
     <form action="/login" method="post">
         <fieldset>
-            <legend>Login</legend>
+            <legend>Log In</legend>
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" placeholder="Username" autocomplete="username" required>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
         </fieldset>
+        <a style="display: block; margin-bottom: 1em;" href="/reset">Forgot password?</a>
         <input type="submit" value="Log In">
+        <p>Don't have an account? <a href="/register">Register here</a>.</p>
     </form>
 </body>
 </html>

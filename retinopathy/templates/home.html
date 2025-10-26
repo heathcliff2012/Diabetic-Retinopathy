@@ -3,10 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="static/main.css">
     <title>Home</title>
 </head>
-<body>
-    <h1>Welcome to the Retinopathy Detection App</h1>
-    <p>This application helps in detecting retinopathy from retinal images.</p>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <header class="bg-white shadow-md">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center px-6">
+                <p class="text-2xl font-bold text-blue-600">Retinopathy AI</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        <div class="flex flex-col md:flex-row md:space-x-8">
+
+            <!-- Left Column: Analyzer -->
+            <div class="flex-shrink-0 md:w-1/2">
+                <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8">
+                    <!-- Header Section -->
+                    <div class="text-center mb-6">
+                        <h1 class="text-3xl font-bold text-gray-800">Start New Analysis</h1>
+                        <p class="text-gray-600 mt-2">Upload a retinal fundus image to begin.</p>
+                    </div>
+
+                    <!-- Medical Disclaimer -->
+                    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-6" role="alert">
+                        <p class="font-bold">Important Disclaimer</p>
+                        <p>This is a demonstration tool. The analysis is **simulated** and is **not** a real medical diagnosis. Always consult a qualified healthcare professional.</p>
+                    </div>
+
+                    <!-- Image Upload Section -->
+                    <div class="mb-6">
+                        <label for="imageUpload" class="sr-only">Upload Image</label>
+                        <div class="file-input-wrapper w-full">
+                            <label for="imageUpload" class="file-input-label">
+                                <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3 3m3-3l3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.33 0 4.5 4.5 0 01-1.41 8.775H6.75z" />
+                                </svg>
+                                <span class="mt-2 text-sm font-medium text-gray-600">Click to upload or drag and drop</span>
+                                <span class="text-xs text-gray-500">PNG, JPG, or WEBP</span>
+                            </label>
+                            <input id="imageUpload" name="imageUpload" type="file" accept="image/png, image/jpeg, image/webp">
+                        </div>
+                    </div>
+
+                    <!-- Image Preview Section -->
+                    <div id="imagePreviewContainer" class="mb-6 hidden">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Image Preview:</p>
+                        <div class="w-full h-64 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
+                            <img id="imagePreview" src="#" alt="Image preview" class="max-h-full max-w-full object-contain">
+                        </div>
+                    </div>
+
+                    <!-- Analyze Button -->
+                    <button id="analyzeButton" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Analyze Image
+                    </button>
+
+                    <!-- Results Section -->
+                    <div id="loader" class="flex justify-center mt-6 hidden">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="resultsSection" class="mt-8 hidden">
+                        <!-- Results will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: History -->
+            <div class="flex-grow md:w-1/2 mt-8 md:mt-0">
+                <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Records</h2>
+                    
+                    <!-- User ID Panel -->
+                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                        <label for="userIdDisplay" class="text-sm font-medium text-gray-700">Your Unique User ID:</label>
+                        <div class="flex mt-2">
+                            <input id="userIdDisplay" type="text" class="flex-1 bg-gray-200 p-2 rounded-l-md text-gray-600 text-sm truncate" readonly value="Initializing...">
+                            <button id="copyIdButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 p-2 rounded-r-md" title="Copy ID">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p id="copyFeedback" class="text-xs text-green-600 mt-1 h-4"></p>
+                    </div>
+
+                    <!-- History List -->
+                    <div id="historyContainer" class="max-h-[80vh] overflow-y-auto pr-2">
+                        <div id="historyList" class="space-y-4">
+                            <!-- History items will be injected here -->
+                            <p id="historyLoading" class="text-gray-500">Loading records...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // 1. Import Firebase services
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            collection, 
+            addDoc, 
+            query, 
+            onSnapshot,
+            setLogLevel
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- 2. CONFIG & INITIALIZATION ---
+        
+        // These global constants are provided by the environment
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Enable debug logging for Firestore
+        // setLogLevel('Debug');
+
+        // Global variables to hold user state
+        let currentUserId = null;
+        let recordsListenerUnsubscribe = null; // To stop listener on auth change
+
+        // --- 3. DOM ELEMENT REFERENCES ---
+        const imageUpload = document.getElementById('imageUpload');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const loader = document.getElementById('loader');
+        const resultsSection = document.getElementById('resultsSection');
+        const authStatus = document.getElementById('authStatus');
+        const userIdDisplay = document.getElementById('userIdDisplay');
+        const copyIdButton = document.getElementById('copyIdButton');
+        const copyFeedback = document.getElementById('copyFeedback');
+        const historyList = document.getElementById('historyList');
+        const historyLoading = document.getElementById('historyLoading');
+
+        let uploadedFileData = null;
+
+        // --- 4. AUTHENTICATION ---
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // User is signed in.
+                currentUserId = user.uid;
+                console.log("User authenticated:", currentUserId);
+                
+                // Update UI
+                authStatus.textContent = "Connected";
+                authStatus.classList.remove("text-red-500");
+                authStatus.classList.add("text-green-600");
+                userIdDisplay.value = currentUserId;
+
+                // Start listening for this user's records
+                listenForRecords(currentUserId);
+                
+            } else {
+                // User is signed out or auth is initializing.
+                console.log("No user signed in. Attempting auth...");
+                authStatus.textContent = "Connecting...";
+                authStatus.classList.add("text-red-500");
+                authStatus.classList.remove("text-green-600");
+                
+                // Stop any previous listeners
+                if (recordsListenerUnsubscribe) {
+                    recordsListenerUnsubscribe();
+                }
+                
+                // Try to sign in
+                try {
+                    if (initialAuthToken) {
+                        console.log("Signing in with custom token...");
+                        await signInWithCustomToken(auth, initialAuthToken);
+                    } else {
+                        console.log("Signing in anonymously...");
+                        await signInAnonymously(auth);
+                    }
+                } catch (error) {
+                    console.error("Authentication failed:", error);
+                    authStatus.textContent = "Auth Failed";
+                    historyLoading.textContent = "Could not load records. Authentication failed.";
+                }
+            }
+        });
+
+        // --- 5. CORE APP LOGIC: ANALYSIS ---
+
+        // File upload listener
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                    uploadedFileData = e.target.result; // Store base64 data
+                };
+                reader.readAsDataURL(file);
+                analyzeButton.disabled = false;
+                resultsSection.classList.add('hidden');
+                resultsSection.innerHTML = '';
+            }
+        });
+
+        // Analyze button listener
+        analyzeButton.addEventListener('click', async () => {
+            if (!uploadedFileData || !currentUserId) return;
+
+            // Show loader and disable button
+            loader.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
+            analyzeButton.disabled = true;
+
+            try {
+                // 1. Simulate AI Model Call
+                const result = await mockApiCall(uploadedFileData);
+                
+                // 2. Display the main result
+                displayResults(result);
+
+                // 3. Save the result to Firestore
+                await saveRecordToFirestore(result);
+
+            } catch (error) {
+                console.error("Analysis or save failed:", error);
+                displayResults({ error: "Analysis failed. Please try again." });
+            } finally {
+                // Hide loader and re-enable button
+                loader.classList.add('hidden');
+                analyzeButton.disabled = false;
+            }
+        });
+
+        // Mock AI Model Function (The Simulation)
+        function mockApiCall(imageData) {
+            console.log("Sending image data to mock AI model...");
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    const possibleResults = [
+                        { diagnosis: "No Diabetic Retinopathy", confidence: 0.97, recommendation: "Continue regular annual screenings.", severity: "none" },
+                        { diagnosis: "Mild NPDR", confidence: 0.88, recommendation: "Consult an ophthalmologist for monitoring.", severity: "mild" },
+                        { diagnosis: "Moderate NPDR", confidence: 0.91, recommendation: "Follow-up with a retinal specialist is highly recommended.", severity: "moderate" },
+                        { diagnosis: "Severe NPDR", confidence: 0.85, recommendation: "Urgent consultation with an ophthalmologist is required.", severity: "severe" },
+                        { diagnosis: "Proliferative PDR", confidence: 0.94, recommendation: "Seek immediate medical attention from an eye care specialist.", severity: "severe" }
+                    ];
+                    const randomResult = possibleResults[Math.floor(Math.random() * possibleResults.length)];
+                    console.log("Mock analysis complete:", randomResult);
+                    resolve(randomResult);
+                }, 2000); // 2 second delay
+            });
+        }
+
+        // Function to Display Main Result
+        function displayResults(result) {
+            resultsSection.innerHTML = '';
+            let content = '';
+            let severityClasses = 'bg-green-50 border-green-300 text-green-800'; // Default: none
+
+            if (result.error) {
+                severityClasses = 'bg-red-50 border-red-300 text-red-800';
+                content = `
+                    <h3 class="text-lg font-bold mb-2">Analysis Failed</h3>
+                    <p>${result.error}</p>
+                `;
+            } else {
+                if (result.severity === 'mild' || result.severity === 'moderate') {
+                    severityClasses = 'bg-yellow-50 border-yellow-300 text-yellow-800';
+                } else if (result.severity === 'severe') {
+                    severityClasses = 'bg-red-50 border-red-300 text-red-800';
+                }
+                content = `
+                    <h3 class="text-xl font-bold mb-4">Analysis Complete</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <strong class="block text-sm">Diagnosis:</strong>
+                            <span class="text-lg">${result.diagnosis}</span>
+                        </div>
+                        <div>
+                            <strong class="block text-sm">Confidence:</strong>
+                            <span class="text-lg">${(result.confidence * 100).toFixed(1)}%</span>
+                        </div>
+                        <div>
+                            <strong class="block text-sm">Recommendation:</strong>
+                            <p>${result.recommendation}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            resultsSection.innerHTML = `<div class="p-5 rounded-lg border ${severityClasses}">${content}</div>`;
+            resultsSection.classList.remove('hidden');
+        }
+
+        // --- 6. FIRESTORE DATABASE LOGIC ---
+
+        // Function to save a new record
+        async function saveRecordToFirestore(resultData) {
+            if (!currentUserId) throw new Error("User not authenticated.");
+            
+            // Path: /artifacts/{appId}/users/{userId}/records
+            const recordsCollectionRef = collection(db, 'artifacts', appId, 'users', currentUserId, 'records');
+            
+            const newRecord = {
+                ...resultData,
+                timestamp: new Date() // Use local timestamp
+            };
+
+            console.log("Saving record to Firestore:", newRecord);
+            await addDoc(recordsCollectionRef, newRecord);
+            console.log("Record saved successfully.");
+        }
+
+        // Function to listen for all records
+        function listenForRecords(userId) {
+            // Stop any existing listener
+            if (recordsListenerUnsubscribe) {
+                recordsListenerUnsubscribe();
+            }
+
+            // Path: /artifacts/{appId}/users/{userId}/records
+            const recordsCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'records');
+            const q = query(recordsCollectionRef);
+
+            recordsListenerUnsubscribe = onSnapshot(q, (snapshot) => {
+                console.log(`Received ${snapshot.size} records from Firestore.`);
+                const records = [];
+                snapshot.forEach((doc) => {
+                    records.push(doc.data());
+                });
+
+                // Sort records in JavaScript (newest first)
+                // This avoids needing a Firestore index
+                records.sort((a, b) => {
+                    const dateA = a.timestamp?.seconds || a.timestamp?._seconds || a.timestamp.getTime() / 1000;
+                    const dateB = b.timestamp?.seconds || b.timestamp?._seconds || b.timestamp.getTime() / 1000;
+                    return dateB - dateA;
+                });
+
+                // Render the records
+                renderHistoryList(records);
+
+            }, (error) => {
+                console.error("Error listening to records:", error);
+                historyList.innerHTML = `<p class="text-red-500">Error loading records.</p>`;
+            });
+        }
+
+        // Function to render the history list
+        function renderHistoryList(records) {
+            historyList.innerHTML = ''; // Clear list
+
+            if (records.length === 0) {
+                historyLoading.textContent = "No records found. Run an analysis to start.";
+                historyList.appendChild(historyLoading);
+                return;
+            }
+
+            records.forEach(data => {
+                const card = createHistoryCard(data);
+                historyList.appendChild(card);
+            });
+        }
+        
+        // Function to create a single history card
+        function createHistoryCard(data) {
+            const card = document.createElement('div');
+            let severityClasses = 'border-l-4 border-green-500'; // Default: none
+            if (data.severity === 'mild' || data.severity === 'moderate') {
+                severityClasses = 'border-l-4 border-yellow-500';
+            } else if (data.severity === 'severe') {
+                severityClasses = 'border-l-4 border-red-500';
+            }
+            
+            card.className = `bg-gray-50 border p-4 rounded-lg shadow-sm ${severityClasses}`;
+            
+            const timestamp = data.timestamp?.seconds ? new Date(data.timestamp.seconds * 1000) : new Date(data.timestamp);
+            const formattedDate = formatDate(timestamp);
+
+            card.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <h4 class="font-bold text-lg text-gray-800">${data.diagnosis}</h4>
+                    <span class="text-xs font-medium text-gray-500">${formattedDate}</span>
+                </div>
+                <p class="text-sm text-gray-600">${data.recommendation}</p>
+            `;
+            return card;
+        }
+
+        // --- 7. UTILITY FUNCTIONS ---
+
+        // Helper to format date
+        function formatDate(date) {
+            return date.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // Helper to copy user ID
+        copyIdButton.addEventListener('click', () => {
+            // Create a temporary textarea to hold the text
+            const tempInput = document.createElement('input');
+            tempInput.style.position = 'absolute';
+            tempInput.style.left = '-9999px';
+            tempInput.value = currentUserId;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                // Use execCommand for broader compatibility in iFrames
+                document.execCommand('copy');
+                copyFeedback.textContent = 'Copied to clipboard!';
+            } catch (err) {
+                console.error('Failed to copy ID: ', err);
+                copyFeedback.textContent = 'Failed to copy.';
+            }
+
+            document.body.removeChild(tempInput);
+
+            // Clear feedback after a moment
+            setTimeout(() => {
+                copyFeedback.textContent = '';
+            }, 2000);
+        });
+
+    </script>
 </body>
 </html>
