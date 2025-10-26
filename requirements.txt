@@ -3,7 +3,7 @@ flask_login
 flask_sqlalchemy
 flask_bcrypt
 flask_login
-Flask-Migrate
+flask-Migrate
 flask_wtf
 wtforms
 wtforms.validators
