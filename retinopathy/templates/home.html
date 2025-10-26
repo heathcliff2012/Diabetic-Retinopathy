@@ -3,452 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetinaLytix - AI-Driven Retinopathy Analysis</title>
+    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="static/main.css">
-    <title>Home</title>
+    <!-- Configure Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Professional blue/green palette for health-tech
+                        primary: {
+                            light: '#E0F2F1', // teal-50
+                            DEFAULT: '#00796B', // teal-700
+                            dark: '#004D40', // teal-900
+                        },
+                        secondary: {
+                            light: '#E3F2FD', // blue-50
+                            DEFAULT: '#1E88E5', // blue-600
+                            dark: '#0D47A1', // blue-900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Import Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Style for the "dashboard" view to have a different background */
+        body.dashboard-bg {
+            background-color: #f8fafc; /* gray-50 */
+        }
+        /* Style for the "website" view */
+        body.website-bg {
+            background-color: #ffffff; /* white */
+        }
+        /* Custom styles for file upload dropzone */
+        .dropzone {
+            border: 2px dashed #cbd5e1; /* gray-300 */
+            transition: all 0.3s ease;
+        }
+        .dropzone.dragover {
+            border-color: #1E88E5; /* secondary.DEFAULT */
+            background-color: #E3F2FD; /* secondary.light */
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-    <header class="bg-white shadow-md">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center px-6">
-                <p class="text-2xl font-bold text-blue-600">Retinopathy AI</p>
+<body class="website-bg text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#" data-page="home" class="flex-shrink-0 flex items-center">
+                    <!-- SVG Logo Icon (simple abstract shape) -->
+                    <svg class="h-8 w-8 text-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="currentColor"/>
+                        <path d="M12 17C14.761 17 17 14.761 17 12C17 9.239 14.761 7 12 7C9.239 7 7 9.239 7 12C7 14.761 9.239 17 12 17ZM12 15C10.343 15 9 13.657 9 12C9 10.343 10.343 9 12 9C13.657 9 15 10.343 15 12C15 13.657 13.657 15 12 15Z" fill="currentColor"/>
+                    </svg>
+                    <span class="ml-2 text-2xl font-bold text-primary-dark">RetinaLytix</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#" data-page="home" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="#" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                    <a href="#" data-page="contact" class="font-medium text-gray-600 hover:text-primary transition">Contact</a>
+                </div>
+
+                <!-- Login Button & Mobile Menu Button -->
+                <div class="flex items-center">
+                    <a href="#" data-page="dashboard" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                        Clinician Login
+                    </a>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" type="button" class="md:hidden ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Hamburger Icon -->
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <!-- Close Icon (hidden by default) -->
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-        </div>
+
+            <!-- Mobile Menu (hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="pt-2 pb-3 space-y-1">
+                    <a href="#" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
+                    <a href="#" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
+                    <a href="#" data-page="contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Contact</a>
+                    <a href="#" data-page="dashboard" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="max-w-7xl mx-auto p-4 md:p-8">
-        <div class="flex flex-col md:flex-row md:space-x-8">
-
-            <!-- Left Column: Analyzer -->
-            <div class="flex-shrink-0 md:w-1/2">
-                <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8">
-                    <!-- Header Section -->
-                    <div class="text-center mb-6">
-                        <h1 class="text-3xl font-bold text-gray-800">Start New Analysis</h1>
-                        <p class="text-gray-600 mt-2">Upload a retinal fundus image to begin.</p>
-                    </div>
-
-                    <!-- Medical Disclaimer -->
-                    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-6" role="alert">
-                        <p class="font-bold">Important Disclaimer</p>
-                        <p>This is a demonstration tool. The analysis is **simulated** and is **not** a real medical diagnosis. Always consult a qualified healthcare professional.</p>
-                    </div>
-
-                    <!-- Image Upload Section -->
-                    <div class="mb-6">
-                        <label for="imageUpload" class="sr-only">Upload Image</label>
-                        <div class="file-input-wrapper w-full">
-                            <label for="imageUpload" class="file-input-label">
-                                <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3 3m3-3l3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.33 0 4.5 4.5 0 01-1.41 8.775H6.75z" />
-                                </svg>
-                                <span class="mt-2 text-sm font-medium text-gray-600">Click to upload or drag and drop</span>
-                                <span class="text-xs text-gray-500">PNG, JPG, or WEBP</span>
-                            </label>
-                            <input id="imageUpload" name="imageUpload" type="file" accept="image/png, image/jpeg, image/webp">
-                        </div>
-                    </div>
-
-                    <!-- Image Preview Section -->
-                    <div id="imagePreviewContainer" class="mb-6 hidden">
-                        <p class="text-sm font-medium text-gray-700 mb-2">Image Preview:</p>
-                        <div class="w-full h-64 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden bg-gray-50">
-                            <img id="imagePreview" src="#" alt="Image preview" class="max-h-full max-w-full object-contain">
-                        </div>
-                    </div>
-
-                    <!-- Analyze Button -->
-                    <button id="analyzeButton" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        Analyze Image
-                    </button>
-
-                    <!-- Results Section -->
-                    <div id="loader" class="flex justify-center mt-6 hidden">
-                        <div class="loader"></div>
-                    </div>
-                    <div id="resultsSection" class="mt-8 hidden">
-                        <!-- Results will be injected here by JavaScript -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: History -->
-            <div class="flex-grow md:w-1/2 mt-8 md:mt-0">
-                <div class="bg-white shadow-xl rounded-2xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Your Records</h2>
-                    
-                    <!-- User ID Panel -->
-                    <div class="bg-gray-100 p-4 rounded-lg mb-6">
-                        <label for="userIdDisplay" class="text-sm font-medium text-gray-700">Your Unique User ID:</label>
-                        <div class="flex mt-2">
-                            <input id="userIdDisplay" type="text" class="flex-1 bg-gray-200 p-2 rounded-l-md text-gray-600 text-sm truncate" readonly value="Initializing...">
-                            <button id="copyIdButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 p-2 rounded-r-md" title="Copy ID">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                            </button>
-                        </div>
-                        <p id="copyFeedback" class="text-xs text-green-600 mt-1 h-4"></p>
-                    </div>
-
-                    <!-- History List -->
-                    <div id="historyContainer" class="max-h-[80vh] overflow-y-auto pr-2">
-                        <div id="historyList" class="space-y-4">
-                            <!-- History items will be injected here -->
-                            <p id="historyLoading" class="text-gray-500">Loading records...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <!-- Main Content Area -->
+    <!-- This div is the target for our vanilla JS page router -->
+    <main id="main-content">
+        <!-- The 'home' page content will be loaded here by default -->
     </main>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // 1. Import Firebase services
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { 
-            getAuth, 
-            signInAnonymously, 
-            signInWithCustomToken, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { 
-            getFirestore, 
-            doc, 
-            collection, 
-            addDoc, 
-            query, 
-            onSnapshot,
-            setLogLevel
-        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- 2. CONFIG & INITIALIZATION ---
-        
-        // These global constants are provided by the environment
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        
-        // Enable debug logging for Firestore
-        // setLogLevel('Debug');
-
-        // Global variables to hold user state
-        let currentUserId = null;
-        let recordsListenerUnsubscribe = null; // To stop listener on auth change
-
-        // --- 3. DOM ELEMENT REFERENCES ---
-        const imageUpload = document.getElementById('imageUpload');
-        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-        const imagePreview = document.getElementById('imagePreview');
-        const analyzeButton = document.getElementById('analyzeButton');
-        const loader = document.getElementById('loader');
-        const resultsSection = document.getElementById('resultsSection');
-        const authStatus = document.getElementById('authStatus');
-        const userIdDisplay = document.getElementById('userIdDisplay');
-        const copyIdButton = document.getElementById('copyIdButton');
-        const copyFeedback = document.getElementById('copyFeedback');
-        const historyList = document.getElementById('historyList');
-        const historyLoading = document.getElementById('historyLoading');
-
-        let uploadedFileData = null;
-
-        // --- 4. AUTHENTICATION ---
-        
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                // User is signed in.
-                currentUserId = user.uid;
-                console.log("User authenticated:", currentUserId);
+    <!-- Footer -->
+    <footer id="main-footer" class="bg-gray-800 text-gray-300 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+                <!-- Logo & Mission -->
+                <div class="col-span-2 lg:col-span-1">
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8 text-white" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="currentColor"/><path d="M12 17C14.761 17 17 14.761 17 12C17 9.239 14.761 7 12 7C9.239 7 7 9.239 7 12C7 14.761 9.239 17 12 17ZM12 15C10.343 15 9 13.657 9 12C9 10.343 10.343 9 12 9C13.657 9 15 10.343 15 12C15 13.657 13.657 15 12 15Z" fill="currentColor"/></svg>
+                        <span class="ml-2 text-2xl font-bold text-white">RetinaLytix</span>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-400">AI-powered analysis for early and accurate diabetes monitoring.</p>
+                </div>
                 
-                // Update UI
-                authStatus.textContent = "Connected";
-                authStatus.classList.remove("text-red-500");
-                authStatus.classList.add("text-green-600");
-                userIdDisplay.value = currentUserId;
-
-                // Start listening for this user's records
-                listenForRecords(currentUserId);
+                <!-- Navigation -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Navigate</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" data-page="about" class="text-base text-gray-300 hover:text-white">About Us</a></li>
+                        <li><a href="#" data-page="contact" class="text-base text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
                 
-            } else {
-                // User is signed out or auth is initializing.
-                console.log("No user signed in. Attempting auth...");
-                authStatus.textContent = "Connecting...";
-                authStatus.classList.add("text-red-500");
-                authStatus.classList.remove("text-green-600");
-                
-                // Stop any previous listeners
-                if (recordsListenerUnsubscribe) {
-                    recordsListenerUnsubscribe();
-                }
-                
-                // Try to sign in
-                try {
-                    if (initialAuthToken) {
-                        console.log("Signing in with custom token...");
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } else {
-                        console.log("Signing in anonymously...");
-                        await signInAnonymously(auth);
-                    }
-                } catch (error) {
-                    console.error("Authentication failed:", error);
-                    authStatus.textContent = "Auth Failed";
-                    historyLoading.textContent = "Could not load records. Authentication failed.";
-                }
-            }
-        });
+                <!-- Resources -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" data-page="resources" class="text-base text-gray-300 hover:text-white">Blog</a></li>
+                        <li><a href="#" data-page="resources" class="text-base text-gray-300 hover:text-white">FAQs</a></li>
+                        <li><a href="#" data-page="pricing" class="text-base text-gray-300 hover:text-white">Pricing</a></li>
+                    </ul>
+                </div>
 
-        // --- 5. CORE APP LOGIC: ANALYSIS ---
+                <!-- Legal -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" data-page="legal" class="text-base text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" data-page="legal" class="text-base text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" data-page="legal" class="text-base text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
 
-        // File upload listener
-        imageUpload.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    imagePreview.src = e.target.result;
-                    imagePreviewContainer.classList.remove('hidden');
-                    uploadedFileData = e.target.result; // Store base64 data
-                };
-                reader.readAsDataURL(file);
-                analyzeButton.disabled = false;
-                resultsSection.classList.add('hidden');
-                resultsSection.innerHTML = '';
-            }
-        });
+                <!-- Social -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Connect</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="sr-only">LinkedIn</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-.422.724-.665 1.565-.665 2.458 0 1.616.823 3.043 2.074 3.878-.765-.025-1.482-.234-2.11-.583v.061c0 2.257 1.605 4.14 3.737 4.568-.39.106-.803.163-1.227.163-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.063 1.323 4.518 2.09 7.141 2.09 8.57 0 13.255-7.098 13.255-13.254 0-.202-.005-.403-.014-.604.91-.658 1.7-1.47 2.323-2.41z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+                <p class="text-base text-gray-400">&copy; 2025 RetinaLytix. All rights reserved. This is a fictional website for demonstration purposes.</p>
+            </div>
+        </div>
+    </footer>
 
-        // Analyze button listener
-        analyzeButton.addEventListener('click', async () => {
-            if (!uploadedFileData || !currentUserId) return;
 
-            // Show loader and disable button
-            loader.classList.remove('hidden');
-            resultsSection.classList.add('hidden');
-            analyzeButton.disabled = true;
-
-            try {
-                // 1. Simulate AI Model Call
-                const result = await mockApiCall(uploadedFileData);
-                
-                // 2. Display the main result
-                displayResults(result);
-
-                // 3. Save the result to Firestore
-                await saveRecordToFirestore(result);
-
-            } catch (error) {
-                console.error("Analysis or save failed:", error);
-                displayResults({ error: "Analysis failed. Please try again." });
-            } finally {
-                // Hide loader and re-enable button
-                loader.classList.add('hidden');
-                analyzeButton.disabled = false;
-            }
-        });
-
-        // Mock AI Model Function (The Simulation)
-        function mockApiCall(imageData) {
-            console.log("Sending image data to mock AI model...");
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    const possibleResults = [
-                        { diagnosis: "No Diabetic Retinopathy", confidence: 0.97, recommendation: "Continue regular annual screenings.", severity: "none" },
-                        { diagnosis: "Mild NPDR", confidence: 0.88, recommendation: "Consult an ophthalmologist for monitoring.", severity: "mild" },
-                        { diagnosis: "Moderate NPDR", confidence: 0.91, recommendation: "Follow-up with a retinal specialist is highly recommended.", severity: "moderate" },
-                        { diagnosis: "Severe NPDR", confidence: 0.85, recommendation: "Urgent consultation with an ophthalmologist is required.", severity: "severe" },
-                        { diagnosis: "Proliferative PDR", confidence: 0.94, recommendation: "Seek immediate medical attention from an eye care specialist.", severity: "severe" }
-                    ];
-                    const randomResult = possibleResults[Math.floor(Math.random() * possibleResults.length)];
-                    console.log("Mock analysis complete:", randomResult);
-                    resolve(randomResult);
-                }, 2000); // 2 second delay
-            });
-        }
-
-        // Function to Display Main Result
-        function displayResults(result) {
-            resultsSection.innerHTML = '';
-            let content = '';
-            let severityClasses = 'bg-green-50 border-green-300 text-green-800'; // Default: none
-
-            if (result.error) {
-                severityClasses = 'bg-red-50 border-red-300 text-red-800';
-                content = `
-                    <h3 class="text-lg font-bold mb-2">Analysis Failed</h3>
-                    <p>${result.error}</p>
-                `;
-            } else {
-                if (result.severity === 'mild' || result.severity === 'moderate') {
-                    severityClasses = 'bg-yellow-50 border-yellow-300 text-yellow-800';
-                } else if (result.severity === 'severe') {
-                    severityClasses = 'bg-red-50 border-red-300 text-red-800';
-                }
-                content = `
-                    <h3 class="text-xl font-bold mb-4">Analysis Complete</h3>
-                    <div class="space-y-3">
+    <!-- 
+    ================================================================
+    PAGE CONTENT TEMPLATES
+    ================================================================
+    The JavaScript below will load one of these templates into the 
+    <main id="main-content"> element based on navigation.
+    -->
+    <script type="text/template" id="template-home">
+        <div>
+            <!-- Hero Section -->
+            <section class="bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <!-- Hero Text -->
                         <div>
-                            <strong class="block text-sm">Diagnosis:</strong>
-                            <span class="text-lg">${result.diagnosis}</span>
+                            <span class="text-sm font-semibold text-primary uppercase tracking-wide">Clinically Validated AI</span>
+                            <h1 class="mt-4 text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
+                                AI-Driven Retinopathy Analysis for Diabetes Monitoring
+                            </h1>
+                            <p class="mt-6 text-lg text-gray-600">
+                                Our advanced AI system provides fast, accurate, and non-invasive diabetic level predictions from retinal images. Empowering clinicians, improving patient outcomes.
+                            </p>
+                            <div class="mt-8 flex flex-wrap gap-4">
+                                <a href="#" data-page="technology" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition shadow-lg">
+                                    Learn More
+                                </a>
+                                <a href="#" data-page="contact" class="inline-block px-8 py-3 text-base font-medium rounded-md text-primary bg-primary-light hover:bg-teal-100 transition">
+                                    Request a Demo
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <strong class="block text-sm">Confidence:</strong>
-                            <span class="text-lg">${(result.confidence * 100).toFixed(1)}%</span>
-                        </div>
-                        <div>
-                            <strong class="block text-sm">Recommendation:</strong>
-                            <p>${result.recommendation}</p>
+                        <!-- Hero Visual -->
+                        <div class="text-center">
+                            <img src="https://placehold.co/600x450/00796B/FFFFFF?text=AI+Analysis+of+Retina" 
+                                 alt="AI overlay on a retinal scan" 
+                                 class="rounded-lg shadow-2xl object-cover"
+                                 onerror="this.src='https://placehold.co/600x450?text=Image+Not+Found'">
+                            <p class="text-sm text-gray-500 mt-2">Fictional representation of AI analysis.</p>
                         </div>
                     </div>
-                `;
-            }
-            resultsSection.innerHTML = `<div class="p-5 rounded-lg border ${severityClasses}">${content}</div>`;
-            resultsSection.classList.remove('hidden');
-        }
+                </div>
+            </section>
 
-        // --- 6. FIRESTORE DATABASE LOGIC ---
+            <!-- How It Works Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold text-gray-900">A Simple 3-Step Workflow</h2>
+                    </div>
+                    <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+                        <!-- Connector line -->
+                        <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200" style="transform: translateY(-40px);"></div>
+                        
+                        <!-- Step 1 -->
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                            </div>
+                            <h3 class="mt-4 text-xl font-semibold">1. Upload Image</h3>
+                            <p class="mt-2 text-gray-600">Securely upload a retinal fundus image from any compatible device or EHR system.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+                            </div>
+                            <h3 class="mt-4 text-xl font-semibold">2. AI Analysis</h3>
+                            <p class="mt-2 text-gray-600">Our model analyzes the image for key biomarkers associated with diabetic retinopathy.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            </div>
+                            <h3 class="mt-4 text-xl font-semibold">3. View Report</h3>
+                            <p class="mt-2 text-gray-600">Access a clear, actionable report with risk categorization and decision support.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Trust Badges Section -->
+            <!-- This section has been removed as requested -->
+            
+            <!-- Testimonials Section -->
+            <!-- This section has been removed as requested -->
 
-        // Function to save a new record
-        async function saveRecordToFirestore(resultData) {
-            if (!currentUserId) throw new Error("User not authenticated.");
+            <!-- New Patient History Showcase Section -->
+            <section class="py-16 bg-gray-50">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold text-gray-900">See the Platform in Action</h2>
+                        <p class="mt-4 text-lg text-gray-600">
+                            Our dashboard provides clear, immediate results. Here are some examples of anonymized analysis reports.
+                        </p>
+                    </div>
+                    
+                    <!-- Showcase Table -->
+                    <div class="mt-12 max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+                        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                            <h3 class="text-lg font-medium text-gray-900">Example Analysis Reports</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Case ID</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient Name</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sex</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Diagnosis</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <!-- Mock Data Row 1 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1024</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R. Kumar</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">M</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">58</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">Moderate DR</td>
+                                    </tr>
+                                    <!-- Mock Data Row 2 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">A. Patel</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">F</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">65</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">No DR</td>
+                                    </tr>
+                                    <!-- Mock Data Row 3 -->
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Case-1022</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">S. Singh</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">M</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">47</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-700 font-medium">Mild DR</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 text-center">
+                            <p class="text-sm text-gray-500 italic">*Data shown is for demonstration purposes only and is entirely fictional.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10 text-center">
+                         <a href="#" data-page="dashboard" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition shadow-lg">
+                            Go to Secure Dashboard
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </script>
+    
+    <!-- ========================================================== -->
+
+    <script type="text/template" id="template-technology">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="max-w-3xl mx-auto">
+                <span class="text-sm font-semibold text-primary uppercase tracking-wide">Our Technology</span>
+                <h1 class="mt-4 text-4xl font-extrabold text-gray-900">Deep Learning for Clinical Precision</h1>
+                <p class="mt-6 text-lg text-gray-600">
+                    Our platform is built on a state-of-the-art deep convolutional neural network (CNN) trained on one of the world's largest and most diverse datasets of retinal images. This ensures high accuracy and reduces bias.
+                </p>
+
+                <div class="mt-12">
+                    <h2 class="text-2xl font-bold text-gray-900">Detailed Workflow</h2>
+                    <p class="mt-4 text-gray-600">From upload to report, our system is optimized for speed, security, and accuracy.</p>
+                    <ul class="mt-6 space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">1</div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Image Capture & Preprocessing</h3>
+                                <p class="mt-1 text-gray-600">Images are securely ingested via our web portal, mobile app, or API. Our system automatically checks for quality (e.g., focus, illumination) and preprocesses the image to normalize it for analysis.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">2</div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">AI Model Prediction</h3>
+                                <p class="mt-1 text-gray-600">The processed image is passed to our AI model, which identifies key biomarkers such as microaneurysms, hemorrhages, and exudates. It then outputs a multi-class prediction (e.g., No DR, Mild, Moderate, Severe, Proliferative).</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary-light text-primary font-bold">3</div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Result Generation & Integration</h3>
+                                <p class="mt-1 text-gray-600">A clinician-friendly report is generated with the risk score, a visualization of the findings (heat-map), and recommendations. This report is delivered to the dashboard and can be automatically pushed to your EHR.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-12 bg-gray-50 p-6 rounded-lg">
+                    <h2 class="text-2xl font-bold text-gray-900">Data, Validation, and Security</h2>
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Validation & Accuracy</h3>
+                            <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                                <li>Trained on 500,000+ images</li>
+                                <li>98.5% Sensitivity (Referable DR)</li>
+                                <li>99.1% Specificity</li>
+                                <li>Peer-reviewed in *The Lancet* (fictional)</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900">Security & Privacy</h3>
+                            <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                                <li>HIPAA & GDPR Compliant</li>
+                                <li>All data encrypted (AES-256)</li>
+                                <li>Data anonymization at ingest</li>
+                                <li>Role-based access control</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    
+    <!-- ========================================================== -->
+
+    <script type="text/template" id="template-dashboard">
+        <!-- This template is for the logged-in user dashboard -->
+        <!-- It has a different layout from the public-facing website -->
+        <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
             
-            // Path: /artifacts/{appId}/users/{userId}/records
-            const recordsCollectionRef = collection(db, 'artifacts', appId, 'users', currentUserId, 'records');
-            
-            const newRecord = {
-                ...resultData,
-                timestamp: new Date() // Use local timestamp
+            <!-- Sidebar Navigation -->
+            <aside class="w-64 bg-white shadow-md hidden md:block">
+                <div class="py-4 px-6">
+                    <h2 class="text-lg font-semibold text-gray-900">Clinician Dashboard</h2>
+                    <p class="text-sm text-gray-600">Welcome, Dr. Hemanth</p>
+                </div>
+                <nav class="mt-6">
+                    <a href="#" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                        <span class="ml-3">Upload Scan</span>
+                    </a>
+                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
+                        <span class="ml-3">Patient History</span>
+                    </a>
+                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 12H7.5" /></svg>
+                        <span class="ml-3">Settings</span>
+                    </a>
+                    <a href="#" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                        <span class="ml-3">Help & Support</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Dashboard Content -->
+            <main class="flex-1 overflow-y-auto p-8">
+                <h1 class="text-3xl font-bold text-gray-900">Upload New Scan</h1>
+                <p class="mt-2 text-gray-600">Upload a patient's retinal image to begin the analysis.</p>
+
+                <!-- Upload Component -->
+                <div class="mt-8">
+                    <div id="dropzone" class="dropzone relative flex flex-col items-center justify-center w-full max-w-2xl p-12 bg-white rounded-lg shadow-sm text-center cursor-pointer">
+                        <input type="file" id="file-upload" class="hidden" accept="image/png, image/jpeg, image/dicom">
+                        
+                        <svg class="h-16 w-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3.75 3.75M12 9.75l3.75 3.75M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-18 0v-2.25A2.25 2.25 0 015.25 12h13.5A2.25 2.25 0 0121 14.25v2.25" /></svg>
+                        
+                        <p class="mt-4 text-lg font-medium text-gray-700">
+                            <span class="text-secondary">Click to upload</span> or drag and drop
+                        </p>
+                        <p class="mt-1 text-sm text-gray-500">PNG, JPG, or DICOM files (Max. 10MB)</p>
+                        <p id="file-name" class="mt-4 text-sm font-medium text-gray-800"></p>
+                    </div>
+                    <div id="upload-status" class="mt-4 max-w-2xl hidden">
+                        <div class="flex items-center p-4 rounded-md bg-blue-50 border border-blue-200">
+                            <svg class="h-5 w-5 text-blue-500 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <p class="ml-3 text-sm font-medium text-blue-700">Analyzing image... Please wait.</p>
+                        </div>
+                    </div>
+                    <div id="upload-result" class="mt-4 max-w-2xl hidden">
+                        <!-- Success/Error message will be injected here -->
+                    </div>
+                </div>
+
+                <!-- Patient History Table -->
+                <div class="mt-16">
+                    <h2 class="text-2xl font-bold text-gray-900">Recent Patient History</h2>
+                    <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AI Result</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">View</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <!-- Mock Data Row 1 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00451</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Completed
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">Moderate DR</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 25, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="#" class="text-secondary hover:text-secondary-dark">View Report</a>
+                                    </td>
+                                </tr>
+                                <!-- Mock Data Row 2 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00450</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Completed
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">No DR</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 24, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="#" class="text-secondary hover:text-secondary-dark">View Report</a>
+                                    </td>
+                                </tr>
+                                <!-- Mock Data Row 3 -->
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00449</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                            Pending Review
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Inconclusive (Low Quality)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 24, 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="#" class="text-secondary hover:text-secondary-dark">Review</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </script>
+    
+    <!-- ========================================================== -->
+    
+    <!-- Placeholder Page Template -->
+    <script type="text/template" id="template-placeholder">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <h1 class="text-4xl font-extrabold text-gray-900">{{TITLE}}</h1>
+            <p class="mt-6 text-lg text-gray-600">
+                Full content for this page is coming soon. Please check back later.
+            </p>
+        </div>
+    </script>
+
+    <!-- ========================================================== -->
+
+
+    <!-- JavaScript for SPA routing and UI interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.getElementById('main-content');
+            const mainFooter = document.getElementById('main-footer');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // --- Page Content Templates ---
+            const pageTemplates = {
+                'home': document.getElementById('template-home').innerHTML,
+                'technology': document.getElementById('template-technology').innerHTML,
+                'dashboard': document.getElementById('template-dashboard').innerHTML,
             };
 
-            console.log("Saving record to Firestore:", newRecord);
-            await addDoc(recordsCollectionRef, newRecord);
-            console.log("Record saved successfully.");
-        }
+            // Titles for placeholder pages
+            const placeholderPages = {
+                'about': 'About Us',
+                'resources': 'Resources & Blog',
+                'pricing': 'Pricing & Plans',
+                'contact': 'Contact Us & Demo Request',
+                'legal': 'Legal, Privacy & Terms',
+            };
+            const placeholderTemplate = document.getElementById('template-placeholder').innerHTML;
 
-        // Function to listen for all records
-        function listenForRecords(userId) {
-            // Stop any existing listener
-            if (recordsListenerUnsubscribe) {
-                recordsListenerUnsubscribe();
+            // --- Page Rendering Function ---
+            function renderPage(pageId) {
+                if (!pageId) pageId = 'home';
+                
+                let content = '';
+                
+                if (pageTemplates[pageId]) {
+                    content = pageTemplates[pageId];
+                } else if (placeholderPages[pageId]) {
+                    content = placeholderTemplate.replace('{{TITLE}}', placeholderPages[pageId]);
+                } else {
+                    // 404 Not Found
+                    content = placeholderTemplate.replace('{{TITLE}}', '404 - Page Not Found');
+                }
+                
+                mainContent.innerHTML = content;
+                window.scrollTo(0, 0); // Scroll to top on page change
+                
+                // Close mobile menu on navigation
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.querySelector('.block').classList.remove('hidden'); // Show hamburger
+                mobileMenuButton.querySelector('.hidden').classList.add('hidden'); // Hide close icon
+
+                // --- UI Logic for Specific Pages ---
+                if (pageId === 'dashboard') {
+                    // Switch to dashboard-specific styling
+                    document.body.classList.remove('website-bg');
+                    document.body.classList.add('dashboard-bg');
+                    mainFooter.classList.add('hidden');
+                    setupDashboardListeners();
+                } else {
+                    // Switch to website styling
+                    document.body.classList.remove('dashboard-bg');
+                    document.body.classList.add('website-bg');
+                    mainFooter.classList.remove('hidden');
+                }
             }
 
-            // Path: /artifacts/{appId}/users/{userId}/records
-            const recordsCollectionRef = collection(db, 'artifacts', appId, 'users', userId, 'records');
-            const q = query(recordsCollectionRef);
+            // --- Dashboard-specific JS ---
+            function setupDashboardListeners() {
+                const dropzone = document.getElementById('dropzone');
+                const fileUpload = document.getElementById('file-upload');
+                const fileNameDisplay = document.getElementById('file-name');
+                const uploadStatus = document.getElementById('upload-status');
+                const uploadResult = document.getElementById('upload-result');
 
-            recordsListenerUnsubscribe = onSnapshot(q, (snapshot) => {
-                console.log(`Received ${snapshot.size} records from Firestore.`);
-                const records = [];
-                snapshot.forEach((doc) => {
-                    records.push(doc.data());
+                if (!dropzone) return;
+
+                const showMessage = (el, message, type) => {
+                    let bgColor, textColor, borderColor;
+                    if (type === 'success') {
+                        bgColor = 'bg-green-50'; textColor = 'text-green-700'; borderColor = 'border-green-200';
+                    } else if (type === 'error') {
+                        bgColor = 'bg-red-50'; textColor = 'text-red-700'; borderColor = 'border-red-200';
+                    }
+                    el.innerHTML = `<div class="flex items-center p-4 rounded-md ${bgColor} ${borderColor} border"><p class="text-sm font-medium ${textColor}">${message}</p></div>`;
+                    el.classList.remove('hidden');
+                };
+
+                const handleFile = (file) => {
+                    if (file) {
+                        fileNameDisplay.textContent = `File selected: ${file.name}`;
+                        uploadStatus.classList.remove('hidden');
+                        uploadResult.classList.add('hidden');
+                        
+                        // --- FAKE UPLOAD/ANALYSIS PROCESS ---
+                        setTimeout(() => {
+                            uploadStatus.classList.add('hidden');
+                            // Randomly succeed or fail
+                            if (Math.random() > 0.2) {
+                                showMessage(uploadResult, 'Analysis complete. Result: Moderate DR. Report available in history.', 'success');
+                            } else {
+                                showMessage(uploadResult, 'Analysis failed. Image quality too low. Please re-upload.', 'error');
+                            }
+                            fileNameDisplay.textContent = '';
+                        }, 3000); // Simulate 3-second analysis
+                    }
+                };
+
+                // Click to upload
+                dropzone.addEventListener('click', () => fileUpload.click());
+                fileUpload.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+                // Drag and drop events
+                dropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('dragover');
                 });
-
-                // Sort records in JavaScript (newest first)
-                // This avoids needing a Firestore index
-                records.sort((a, b) => {
-                    const dateA = a.timestamp?.seconds || a.timestamp?._seconds || a.timestamp.getTime() / 1000;
-                    const dateB = b.timestamp?.seconds || b.timestamp?._seconds || b.timestamp.getTime() / 1000;
-                    return dateB - dateA;
+                dropzone.addEventListener('dragleave', () => {
+                    dropzone.classList.remove('dragover');
                 });
-
-                // Render the records
-                renderHistoryList(records);
-
-            }, (error) => {
-                console.error("Error listening to records:", error);
-                historyList.innerHTML = `<p class="text-red-500">Error loading records.</p>`;
-            });
-        }
-
-        // Function to render the history list
-        function renderHistoryList(records) {
-            historyList.innerHTML = ''; // Clear list
-
-            if (records.length === 0) {
-                historyLoading.textContent = "No records found. Run an analysis to start.";
-                historyList.appendChild(historyLoading);
-                return;
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('dragover');
+                    handleFile(e.dataTransfer.files[0]);
+                });
             }
 
-            records.forEach(data => {
-                const card = createHistoryCard(data);
-                historyList.appendChild(card);
+            // --- Navigation Event Listeners ---
+            document.body.addEventListener('click', (e) => {
+                const link = e.target.closest('a[data-page]');
+                if (link) {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    // Update hash to keep URL in sync
+                    window.location.hash = pageId;
+                }
             });
-        }
-        
-        // Function to create a single history card
-        function createHistoryCard(data) {
-            const card = document.createElement('div');
-            let severityClasses = 'border-l-4 border-green-500'; // Default: none
-            if (data.severity === 'mild' || data.severity === 'moderate') {
-                severityClasses = 'border-l-4 border-yellow-500';
-            } else if (data.severity === 'severe') {
-                severityClasses = 'border-l-4 border-red-500';
+
+            // --- Hash Change Listener (for URL-based navigation) ---
+            function handleHashChange() {
+                const pageId = window.location.hash.substring(1);
+                renderPage(pageId || 'home');
             }
             
-            card.className = `bg-gray-50 border p-4 rounded-lg shadow-sm ${severityClasses}`;
-            
-            const timestamp = data.timestamp?.seconds ? new Date(data.timestamp.seconds * 1000) : new Date(data.timestamp);
-            const formattedDate = formatDate(timestamp);
+            window.addEventListener('hashchange', handleHashChange);
 
-            card.innerHTML = `
-                <div class="flex justify-between items-center mb-1">
-                    <h4 class="font-bold text-lg text-gray-800">${data.diagnosis}</h4>
-                    <span class="text-xs font-medium text-gray-500">${formattedDate}</span>
-                </div>
-                <p class="text-sm text-gray-600">${data.recommendation}</p>
-            `;
-            return card;
-        }
-
-        // --- 7. UTILITY FUNCTIONS ---
-
-        // Helper to format date
-        function formatDate(date) {
-            return date.toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                // Toggle icons
+                mobileMenuButton.querySelectorAll('svg').forEach(icon => icon.classList.toggle('hidden'));
             });
-        }
 
-        // Helper to copy user ID
-        copyIdButton.addEventListener('click', () => {
-            // Create a temporary textarea to hold the text
-            const tempInput = document.createElement('input');
-            tempInput.style.position = 'absolute';
-            tempInput.style.left = '-9999px';
-            tempInput.value = currentUserId;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            try {
-                // Use execCommand for broader compatibility in iFrames
-                document.execCommand('copy');
-                copyFeedback.textContent = 'Copied to clipboard!';
-            } catch (err) {
-                console.error('Failed to copy ID: ', err);
-                copyFeedback.textContent = 'Failed to copy.';
-            }
-
-            document.body.removeChild(tempInput);
-
-            // Clear feedback after a moment
-            setTimeout(() => {
-                copyFeedback.textContent = '';
-            }, 2000);
+            // --- Initial Page Load ---
+            handleHashChange();
         });
-
     </script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
