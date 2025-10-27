@@ -36,16 +36,13 @@
 
             <!-- Upload Component -->
             <div class="mt-8">
-                <div id="dropzone" class="dropzone relative flex flex-col items-center justify-center w-full max-w-4xl p-12 bg-gray-300 rounded-lg shadow-sm text-center cursor-pointer">
-                    <input type="file" id="file-upload" class="hidden" accept="image/png, image/jpeg, image/dicom">
-                    
-                    <svg class="h-16 w-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3.75 3.75M12 9.75l3.75 3.75M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-18 0v-2.25A2.25 2.25 0 015.25 12h13.5A2.25 2.25 0 0121 14.25v2.25" /></svg>
-                    
-                    <p class="mt-4 text-lg font-medium text-gray-700">
-                        <span class="text-secondary">Click to upload</span> or drag and drop
-                    </p>
-                    <p class="mt-1 text-sm text-gray-500">PNG, JPG, or DICOM files (Max. 10MB)</p>
-                    <p id="file-name" class="mt-4 text-sm font-medium text-gray-800"></p>
+                <div class="flex space-x-6">
+                    <div class="w-64 bg-gray-300 flex h-32 rounded-md">
+                        <h3 class="text-lg font-semibold text-gray-900">Patient's Right Eye</h3>
+                    </div>
+                    <div class="w-64 bg-gray-300 flex h-32 rounded-md">
+                        <h3 class="text-lg font-semibold text-gray-900">Patient's Left Eye</h3>
+                    </div>
                 </div>
                 <div id="upload-status" class="mt-4 max-w-2xl hidden">
                     <div class="flex items-center p-4 rounded-md bg-blue-50 border border-blue-200">
@@ -73,23 +70,25 @@
                         <div>
                             <label for="patient-gender">Patient Gender</label>
                             <input type="radio" id="patient-gender-male" name="patient_gender" value="Male">
-                            <big for="patient-gender-male">Male</big>
+                            <b for="patient-gender-male">Male</b>
                             <input type="radio" id="patient-gender-female" name="patient_gender" value="Female">
-                            <big for="patient-gender-female">Female</big>
+                            <b for="patient-gender-female">Female</b>
                         </div>
                         <div>
                             <label for="patient-eye">Patient Eye</label>
-                            <input type="image" id="patient-eye-left" name="patient_eye" value="Left">
-                            <big for="patient-eye-left">Left</big>
-                            <button type="button" class="upload-btn border" onclick="document.getElementById('file-upload').click();" >
+                            <input type="image" class="m-2 mb-3 mt-2" id="patient-eye-left" name="patient_eye" value="Left">
+                            <button type="button" class="upload-btn border bg-gray-100" onclick="document.getElementById('file-upload').click();" >
                                 Upload
                             </button>
-                            <input type="image" id="patient-eye-right" name="patient_eye" value="Right">
-                            <big for="patient-eye-right">Right</big>
+                            <br>
+                            <input type="image" class="m-2 mb-3 mt-2" id="patient-eye-right" name="patient_eye" value="Right">
+                            <button type="button" class="upload-btn border bg-gray-100" onclick="document.getElementById('file-upload').click();" >
+                                Upload
+                            </button>
                         </div>
                         <div>
                             <label for="scan-date">Scan Date</label>
-                            <input type="text" id="scan-date" name="scan_date" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Scan Date" required>
+                            <input type="date" id="scan-date" name="scan_date" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Scan Date" required>
                         </div>
                     </fieldset>
                     <button type="submit" class="m-20 px-4 py-2 mt-3 bg-secondary text-white rounded-md hover:bg-secondary-dark">Submit</button>
