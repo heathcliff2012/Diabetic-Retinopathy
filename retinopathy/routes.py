@@ -16,7 +16,7 @@ patient_image = {
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('try.html')
+    return render_template('home.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -48,13 +48,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-<<<<<<< Updated upstream
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-=======
->>>>>>> Stashed changes
 
 
 
