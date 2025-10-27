@@ -12,12 +12,14 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
     password = db.Column(db.String(60), nullable = False)
+    patients = db.relationship('Patient', backref = 'doctor', lazy = True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    patient_id = db.Column(db.String(20), unique = True, nullable = False)
     name = db.Column(db.String(100), nullable = False)
     age = db.Column(db.Integer, nullable = False)
     sex = db.Column(db.String(10), nullable = False)

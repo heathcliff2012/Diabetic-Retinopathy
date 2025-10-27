@@ -31,3 +31,14 @@ class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('update')
+
+class PatientForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
+    age = StringField('Age', validators=[DataRequired()])
+    sex = StringField('Sex', validators=[DataRequired()])
+    patient_id = StringField('Patient ID', validators=[DataRequired()])
+    right_eye_diagnosis = StringField('Right Eye Diagnosis', validators=[DataRequired()])
+    left_eye_diagnosis = StringField('Left Eye Diagnosis', validators=[DataRequired()])
+    right_eye_image = StringField('Right Eye Image', validators=[DataRequired()])
+    left_eye_image = StringField('Left Eye Image', validators=[DataRequired()])
+    submit = SubmitField('Add Patient')
