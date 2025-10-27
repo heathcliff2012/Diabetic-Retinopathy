@@ -1,10 +1,11 @@
 from retinopathy import db,login_manager
 from flask_login import UserMixin
 from datetime import datetime
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
@@ -14,12 +15,18 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
-    
-class Image(db.Model):
+
+class Patient(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    image_file = db.Column(db.String(20), nullable = False, default = 'default.jpg')
+    name = db.Column(db.String(100), nullable = False)
+    age = db.Column(db.Integer, nullable = False)
+    sex = db.Column(db.String(10), nullable = False)
+    RightEye_image_file = db.Column(db.String(20), nullable = False, default = 'default.jpg')
+    LeftEye_image_file = db.Column(db.String(20), nullable = False, default = 'default.jpg')
+    RightEye_diagnosis = db.Column(db.String(200), nullable = False)
+    LeftEye_diagnosis = db.Column(db.String(200), nullable = False)
     date_uploaded = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 
     def __repr__(self):
-        return f"Image('{self.image_file}', '{self.date_uploaded}')"
+        return f"Patient('{self.name}', '{self.age}', '{self.RightEye_image_file}', '{self.LeftEye_image_file}', '{self.diagnosis}', '{self.date_uploaded}')"

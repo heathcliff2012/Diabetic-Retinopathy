@@ -1,8 +1,9 @@
 from flask import render_template,url_for,flash,redirect,request
 from retinopathy import app,db,bcrypt
 from retinopathy.forms import RegistrationForm, LoginForm, UpdateAccountForm
-from retinopathy.modules import User, Image
+from retinopathy.modules import User, Patient
 from flask_login import login_user,current_user,logout_user, login_required
+from retinopathy.efficientnet_b3 import model, preprocess_retina_image
 
 patient_image = { 
     'date' : '2024-06-01',
@@ -48,15 +49,13 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-<<<<<<< Updated upstream
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-=======
->>>>>>> Stashed changes
 
 
+@login_required
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 
