@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<style>
+    label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: 600;
+        color: #374151; /* Tailwind's gray-700 */
+    }
+</style>
     <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
         
         <!-- Sidebar Navigation -->
@@ -12,19 +20,11 @@
             <nav class="mt-6">
                 <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                    <span class="ml-3">Upload Scan</span>
+                    <span class="ml-3">Scan New Patient</span>
                 </a>
                 <a href="#" data-page="patient-list" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
                     <span class="ml-3">Patient History</span>
-                </a>
-                <a href="#" data-page="dashboard-settings" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 12H7.5" /></svg>
-                    <span class="ml-3">Settings</span>
-                </a>
-                <a href="#" data-page="dashboard-help" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
-                    <span class="ml-3">Help & Support</span>
                 </a>
             </nav>
         </aside>
@@ -36,7 +36,7 @@
 
             <!-- Upload Component -->
             <div class="mt-8">
-                <div id="dropzone" class="dropzone relative flex flex-col items-center justify-center w-full max-w-2xl p-12 bg-white rounded-lg shadow-sm text-center cursor-pointer">
+                <div id="dropzone" class="dropzone relative flex flex-col items-center justify-center w-full max-w-4xl p-12 bg-gray-300 rounded-lg shadow-sm text-center cursor-pointer">
                     <input type="file" id="file-upload" class="hidden" accept="image/png, image/jpeg, image/dicom">
                     
                     <svg class="h-16 w-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l-3.75 3.75M12 9.75l3.75 3.75M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-18 0v-2.25A2.25 2.25 0 015.25 12h13.5A2.25 2.25 0 0121 14.25v2.25" /></svg>
@@ -56,6 +56,44 @@
                 <div id="upload-result" class="mt-4 max-w-2xl hidden">
                     <!-- Success/Error message will be injected here -->
                 </div>
+                <form action="" method="post" class="mt-6" id="patient-info-form">
+                    <fieldset class="form-group">
+                        <div>
+                            <label for="patient-id">Patient ID</label>
+                            <input type="text" id="patient-id" name="patient_id" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient ID" required>
+                        </div>
+                        <div>
+                            <label for="patient-name">Patient Name</label>
+                            <input type="text" id="patient-name" name="patient_name" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient Name" required>
+                        </div>
+                        <div>
+                            <label for="patient-age">Patient Age</label>
+                            <input type="text" id="patient-age" name="patient_age" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient Age" required>
+                        </div>
+                        <div>
+                            <label for="patient-gender">Patient Gender</label>
+                            <input type="radio" id="patient-gender-male" name="patient_gender" value="Male">
+                            <big for="patient-gender-male">Male</big>
+                            <input type="radio" id="patient-gender-female" name="patient_gender" value="Female">
+                            <big for="patient-gender-female">Female</big>
+                        </div>
+                        <div>
+                            <label for="patient-eye">Patient Eye</label>
+                            <input type="image" id="patient-eye-left" name="patient_eye" value="Left">
+                            <big for="patient-eye-left">Left</big>
+                            <button type="button" class="upload-btn border" onclick="document.getElementById('file-upload').click();" >
+                                Upload
+                            </button>
+                            <input type="image" id="patient-eye-right" name="patient_eye" value="Right">
+                            <big for="patient-eye-right">Right</big>
+                        </div>
+                        <div>
+                            <label for="scan-date">Scan Date</label>
+                            <input type="text" id="scan-date" name="scan_date" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Scan Date" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="m-20 px-4 py-2 mt-3 bg-secondary text-white rounded-md hover:bg-secondary-dark">Submit</button>
+                </form>
             </div>
         </main>
     </div>
