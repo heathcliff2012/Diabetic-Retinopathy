@@ -17,7 +17,7 @@ patient_image = {
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('try.html')
+    return render_template('home.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -1,539 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RetinaLytix - AI-Driven Retinopathy Analysis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        // Professional blue/green palette for health-tech
-                        primary: {
-                            light: '#E0F2F1', // teal-50
-                            DEFAULT: '#00796B', // teal-700
-                            dark: '#004D40', // teal-900
-                        },
-                        secondary: {
-                            light: '#E3F2FD', // blue-50
-                            DEFAULT: '#1E88E5', // blue-600
-                            dark: '#0D47A1', // blue-900
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="website-bg text-gray-800">
+{% extends "layout.html" %}
 
-    <!-- Header & Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <a href="#" data-page="home" class="flex-shrink-0 flex items-center">
-                    <!-- SVG Logo Icon (simple abstract shape) -->
-                    <svg class="h-8 w-8 text-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="currentColor"/>
-                        <path d="M12 17C14.761 17 17 14.761 17 12C17 9.239 14.761 7 12 7C9.239 7 7 9.239 7 12C7 14.761 9.239 17 12 17ZM12 15C10.343 15 9 13.657 9 12C9 10.343 10.343 9 12 9C13.657 9 15 10.343 15 12C15 13.657 13.657 15 12 15Z" fill="currentColor"/>
-                    </svg>
-                    <span class="ml-2 text-2xl font-bold text-primary-dark">RetinaLytix</span>
+{% block content %}
+    <section class="bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-sm font-semibold text-primary uppercase tracking-wide">Clinically Validated AI</span>
+                    <h1 class="mt-4 text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
+                        AI-Driven Retinopathy Analysis for Diabetes Monitoring
+                    </h1>
+                    <p class="mt-6 text-lg text-gray-600">
+                        Our advanced AI system provides fast, accurate, and non-invasive diabetic level predictions from retinal images. Empowering clinicians, improving patient outcomes.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <img src="https://placehold.co/600x450/00796B/FFFFFF?text=AI+Analysis+of+Retina" 
+                         alt="AI overlay on a retinal scan" 
+                         class="rounded-lg shadow-2xl object-cover"
+                         onerror="this.src='https://placehold.co/600x450?text=Image+Not+Found'">
+                    <p class="text-sm text-gray-500 mt-2">Fictional representation of AI analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">A Simple 3-Step Workflow</h2>
+            </div>
+            <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200" style="transform: translateY(-40px);"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                        <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold">1. Upload Image</h3>
+                    <p class="mt-2 text-gray-600">Securely upload a retinal fundus image from any compatible device or EHR system.</p>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                        <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold">2. AI Analysis</h3>
+                    <p class="mt-2 text-gray-600">Our model analyzes the image for key biomarkers associated with diabetic retinopathy.</p>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
+                        <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold">3. View Report</h3>
+                    <p class="mt-2 text-gray-600">Access a clear, actionable report with risk categorization and decision support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-50 text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-semibold text-gray-800">Ready to get started?</h2>
+            <p class="mt-3 text-gray-600">Access the secure clinician portal to manage patients or upload a new scan.</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition shadow-lg">
+                    Patient List
                 </a>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex md:items-center md:space-x-8">
-                    <a href="#" data-page="home" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
-                    <a href="#" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
-                    <a href="#" data-page="contact" class="font-medium text-gray-600 hover:text-primary transition">Contact</a>
-                </div>
-
-                <!-- Login Button & Mobile Menu Button -->
-                <div class="flex items-center">
-                    <a href="#" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
-                        Clinician Login
-                    </a>
-                    <!-- Mobile Menu Button -->
-                    <button id="mobile-menu-button" type="button" class="md:hidden ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <!-- Hamburger Icon -->
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <!-- Close Icon (hidden by default) -->
-                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Menu (hidden by default) -->
-            <div id="mobile-menu" class="md:hidden hidden">
-                <div class="pt-2 pb-3 space-y-1">
-                    <a href="#" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
-                    <a href="#" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
-                    <a href="#" data-page="contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Contact</a>
-                    <a href="#" data-page="patient-list" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Main Content Area -->
-    <!-- This div is the target for our vanilla JS page router -->
-    <main id="main-content">
-        <!-- The 'home' page content will be loaded here by default -->
-    </main>
-
-    <!-- Footer -->
-    <footer id="main-footer" class="bg-gray-800 text-gray-300 mt-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-                <!-- Logo & Mission -->
-                <div class="col-span-2 lg:col-span-1">
-                    <div class="flex items-center">
-                        <svg class="h-8 w-8 text-white" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="currentColor"/><path d="M12 17C14.761 17 17 14.761 17 12C17 9.239 14.761 7 12 7C9.239 7 7 9.239 7 12C7 14.761 9.239 17 12 17ZM12 15C10.343 15 9 13.657 9 12C9 10.343 10.343 9 12 9C13.657 9 15 10.343 15 12C15 13.657 13.657 15 12 15Z" fill="currentColor"/></svg>
-                        <span class="ml-2 text-2xl font-bold text-white">RetinaLytix</span>
-                    </div>
-                    <p class="mt-4 text-sm text-gray-400">AI-powered analysis for early and accurate diabetes monitoring.</p>
-                </div>
-                
-                <!-- Navigation -->
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Navigate</h3>
-                    <ul class="mt-4 space-y-2">
-                        <li><a href="#" data-page="about" class="text-base text-gray-300 hover:text-white">About Us</a></li>
-                        <li><a href="#" data-page="contact" class="text-base text-gray-300 hover:text-white">Contact</a></li>
-                    </ul>
-                </div>
-                <!-- Social -->
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Connect</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <a href="#" class="text-gray-400 hover:text-white">
-                            <span class="sr-only">LinkedIn</span>
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 border-t border-gray-700 pt-8 text-center">
-                <p class="text-base text-gray-400">&copy; 2025 RetinaLytix. All rights reserved.</p>
+                <a href="#" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition shadow-lg">
+                    Scan Patient
+                </a>
             </div>
         </div>
-    </footer>
+    </section>
+{% endblock content %}
 
-
-    <!-- 
-    ================================================================
-    PAGE CONTENT TEMPLATES
-    ================================================================
-    The JavaScript below will load one of these templates into the 
-    <main id="main-content"> element based on navigation.
-    -->
-    <script type="text/template" id="template-home">
-        <div>
-            <!-- Hero Section -->
-            <section class="bg-white">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <!-- Hero Text -->
-                        <div>
-                            <span class="text-sm font-semibold text-primary uppercase tracking-wide">Clinically Validated AI</span>
-                            <h1 class="mt-4 text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
-                                AI-Driven Retinopathy Analysis for Diabetes Monitoring
-                            </h1>
-                            <p class="mt-6 text-lg text-gray-600">
-                                Our advanced AI system provides fast, accurate, and non-invasive diabetic level predictions from retinal images. Empowering clinicians, improving patient outcomes.
-                            </p>
-                            <div class="mt-8 flex flex-wrap gap-4">
-                                <a href="#" data-page="technology" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition shadow-lg">
-                                    Learn More
-                                </a>
-                                <a href="#" data-page="contact" class="inline-block px-8 py-3 text-base font-medium rounded-md text-primary bg-primary-light hover:bg-teal-100 transition">
-                                    Request a Demo
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Hero Visual -->
-                        <div class="text-center">
-                            <img src="https://placehold.co/600x450/00796B/FFFFFF?text=AI+Analysis+of+Retina" 
-                                 alt="AI overlay on a retinal scan" 
-                                 class="rounded-lg shadow-2xl object-cover"
-                                 onerror="this.src='https://placehold.co/600x450?text=Image+Not+Found'">
-                            <p class="text-sm text-gray-500 mt-2">Fictional representation of AI analysis.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- How It Works Section -->
-            <section class="py-16 bg-white">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-3xl font-bold text-gray-900">A Simple 3-Step Workflow</h2>
-                    </div>
-                    <div class="mt-12 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
-                        <!-- Connector line -->
-                        <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200" style="transform: translateY(-40px);"></div>
-                        
-                        <!-- Step 1 -->
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
-                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-xl font-semibold">1. Upload Image</h3>
-                            <p class="mt-2 text-gray-600">Securely upload a retinal fundus image from any compatible device or EHR system.</p>
-                        </div>
-                        <!-- Step 2 -->
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
-                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-xl font-semibold">2. AI Analysis</h3>
-                            <p class="mt-2 text-gray-600">Our model analyzes the image for key biomarkers associated with diabetic retinopathy.</p>
-                        </div>
-                        <!-- Step 3 -->
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-full bg-primary-light text-primary mx-auto">
-                                <svg class="h-10 w-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
-                            </div>
-                            <h3 class="mt-4 text-xl font-semibold">3. View Report</h3>
-                            <p class="mt-2 text-gray-600">Access a clear, actionable report with risk categorization and decision support.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Add Patient Buttons Section -->
-            <section class="py-12 bg-gray-50 text-center">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 class="text-2xl font-semibold text-gray-800">Ready to get started?</h2>
-                    <p class="mt-3 text-gray-600">Access the secure clinician portal to manage patients or upload a new scan.</p>
-                    <div class="mt-8 flex flex-wrap justify-center gap-4">
-                        <a href="#" data-page="patient-list" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition shadow-lg">
-                            Patient List
-                        </a>
-                        <a href="#" data-page="scan-patient" class="inline-block px-8 py-3 text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition shadow-lg">
-                            Scan Patient
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </script>
-    
-    <script type="text/template" id="template-patient-list">
-        <!-- This template is for the Patient History dashboard page -->
-        <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
-            
-            <!-- Sidebar Navigation -->
-            <aside class="w-64 bg-white shadow-md hidden md:block">
-                <div class="py-4 px-6">
-                    <h2 class="text-lg font-semibold text-gray-900">Clinician Dashboard</h2>
-                    <p class="text-sm text-gray-600">Welcome, Dr. Hemanth</p>
-                </div>
-                <nav class="mt-6">
-                    <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                        <span class="ml-3">Upload Scan</span>
-                    </a>
-                    <a href="#" data-page="patient-list" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
-                        <span class="ml-3">Patient History</span>
-                    </a>
-                    <a href="#" data-page="dashboard-settings" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 18H7.5m3-6h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0M3.75 12H7.5" /></svg>
-                        <span class="ml-3">Settings</span>
-                    </a>
-                    <a href="#" data-page="dashboard-help" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
-                        <span class="ml-3">Help & Support</span>
-                    </a>
-                </nav>
-            </aside>
-
-            <!-- Main Dashboard Content -->
-            <main class="flex-1 overflow-y-auto p-8">
-                <h1 class="text-3xl font-bold text-gray-900">Patient History</h1>
-                <p class="mt-2 text-gray-600">Review recent scans and analysis reports.</p>
-
-                <!-- Patient History Table -->
-                <div class="mt-8">
-                    <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient ID</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AI Result</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">View</span></th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Mock Data Row 1 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00451</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Completed
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-medium">Moderate DR</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 25, 2025</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-secondary hover:text-secondary-dark">View Report</a>
-                                    </td>
-                                </tr>
-                                <!-- Mock Data Row 2 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00450</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            Completed
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">No DR</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 24, 2025</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-secondary hover:text-secondary-dark">View Report</a>
-                                    </td>
-                                </tr>
-                                <!-- Mock Data Row 3 -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">P-00449</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/40x40/00796B/FFFFFF?text=R" alt="Retinal scan thumbnail">
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            Pending Review
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Inconclusive (Low Quality)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Oct 24, 2025</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-secondary hover:text-secondary-dark">Review</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </script>
-    
-    <!-- ========================================================== -->
-    
-    <!-- Placeholder Page Template -->
-    <script type="text/template" id="template-placeholder">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <h1 class="text-4xl font-extrabold text-gray-900">{{TITLE}}</h1>
-            <p class="mt-6 text-lg text-gray-600">
-                Full content for this page is coming soon. Please check back later.
-            </p>
-        </div>
-    </script>
-
-    <!-- ========================================================== -->
-
-
-    <!-- JavaScript for SPA routing and UI interactions -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mainContent = document.getElementById('main-content');
-            const mainFooter = document.getElementById('main-footer');
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            // --- Page Content Templates ---
-            const pageTemplates = {
-                'home': document.getElementById('template-home').innerHTML,
-                // 'technology': document.getElementById('template-technology').innerHTML, // Removed this line - it was causing the error
-                'scan-patient': document.getElementById('template-scan-patient').innerHTML,
-                'patient-list': document.getElementById('template-patient-list').innerHTML,
-            };
-
-            // Titles for placeholder pages
-            const placeholderPages = {
-                'about': 'About Us',
-                'resources': 'Resources & Blog',
-                'pricing': 'Pricing & Plans',
-                'contact': 'Contact Us & Demo Request',
-                'legal': 'Legal, Privacy & Terms',
-                'dashboard-settings': 'Dashboard Settings',
-                'dashboard-help': 'Help & Support',
-            };
-            const placeholderTemplate = document.getElementById('template-placeholder').innerHTML;
-
-            // List of all pages that use the dashboard layout
-            const dashboardPages = ['scan-patient', 'patient-list', 'dashboard-settings', 'dashboard-help'];
-
-            // --- Page Rendering Function ---
-            function renderPage(pageId) {
-                if (!pageId) pageId = 'home';
-                
-                let content = '';
-                
-                if (pageTemplates[pageId]) {
-                    content = pageTemplates[pageId];
-                } else if (placeholderPages[pageId]) {
-                    content = placeholderTemplate.replace('{{TITLE}}', placeholderPages[pageId]);
-                } else {
-                    // 404 Not Found
-                    content = placeholderTemplate.replace('{{TITLE}}', '404 - Page Not Found');
-                }
-                
-                mainContent.innerHTML = content;
-                window.scrollTo(0, 0); // Scroll to top on page change
-                
-                // Close mobile menu on navigation
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.querySelector('.block').classList.remove('hidden'); // Show hamburger
-                mobileMenuButton.querySelector('.hidden').classList.add('hidden'); // Hide close icon
-
-                // --- UI Logic for Specific Pages ---
-                if (dashboardPages.includes(pageId)) {
-                    // Switch to dashboard-specific styling
-                    document.body.classList.remove('website-bg');
-                    document.body.classList.add('dashboard-bg');
-                    mainFooter.classList.add('hidden');
-                    
-                    // Only run the uploader script on the scan page
-                    if (pageId === 'scan-patient') {
-                        setupDashboardListeners();
-                    }
-                } else {
-                    // Switch to website styling
-                    document.body.classList.remove('dashboard-bg');
-                    document.body.classList.add('website-bg');
-                    mainFooter.classList.remove('hidden');
-                }
-            }
-
-            // --- Dashboard-specific JS ---
-            function setupDashboardListeners() {
-                const dropzone = document.getElementById('dropzone');
-                const fileUpload = document.getElementById('file-upload');
-                const fileNameDisplay = document.getElementById('file-name');
-                const uploadStatus = document.getElementById('upload-status');
-                const uploadResult = document.getElementById('upload-result');
-
-                if (!dropzone) return;
-
-                const showMessage = (el, message, type) => {
-                    let bgColor, textColor, borderColor;
-                    if (type === 'success') {
-                        bgColor = 'bg-green-50'; textColor = 'text-green-700'; borderColor = 'border-green-200';
-                    } else if (type === 'error') {
-                        bgColor = 'bg-red-50'; textColor = 'text-red-700'; borderColor = 'border-red-200';
-                    }
-                    el.innerHTML = `<div class="flex items-center p-4 rounded-md ${bgColor} ${borderColor} border"><p class="text-sm font-medium ${textColor}">${message}</p></div>`;
-                    el.classList.remove('hidden');
-                };
-
-                const handleFile = (file) => {
-                    if (file) {
-                        fileNameDisplay.textContent = `File selected: ${file.name}`;
-                        uploadStatus.classList.remove('hidden');
-                        uploadResult.classList.add('hidden');
-                        
-                        // --- FAKE UPLOAD/ANALYSIS PROCESS ---
-                        setTimeout(() => {
-                            uploadStatus.classList.add('hidden');
-                            // Randomly succeed or fail
-                            if (Math.random() > 0.2) {
-                                showMessage(uploadResult, 'Analysis complete. Result: Moderate DR. Report available in history.', 'success');
-                            } else {
-                                showMessage(uploadResult, 'Analysis failed. Image quality too low. Please re-upload.', 'error');
-                            }
-                            fileNameDisplay.textContent = '';
-                        }, 3000); // Simulate 3-second analysis
-                    }
-                };
-
-                // Click to upload
-                dropzone.addEventListener('click', () => fileUpload.click());
-                fileUpload.addEventListener('change', (e) => handleFile(e.target.files[0]));
-
-                // Drag and drop events
-                dropzone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('dragover');
-                });
-                dropzone.addEventListener('dragleave', () => {
-                    dropzone.classList.remove('dragover');
-                });
-                dropzone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('dragover');
-                    handleFile(e.dataTransfer.files[0]);
-                });
-            }
-
-            // --- Navigation Event Listeners ---
-            document.body.addEventListener('click', (e) => {
-                const link = e.target.closest('a[data-page]');
-                if (link) {
-                    e.preventDefault();
-                    const pageId = link.getAttribute('data-page');
-                    // Update hash to keep URL in sync
-                    window.location.hash = pageId;
-                }
-            });
-
-            // --- Hash Change Listener (for URL-based navigation) ---
-            function handleHashChange() {
-                const pageId = window.location.hash.substring(1);
-                renderPage(pageId || 'home');
-            }
-            
-            window.addEventListener('hashchange', handleHashChange);
-
-            // --- Mobile Menu Toggle ---
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                // Toggle icons
-                mobileMenuButton.querySelectorAll('svg').forEach(icon => icon.classList.toggle('hidden'));
-            });
-
-            // --- Initial Page Load ---
-            handleHashChange();
-        });
-    </script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% block scripts %}
+{% endblock scripts %}
