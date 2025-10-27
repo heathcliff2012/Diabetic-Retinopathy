@@ -9,3 +9,9 @@ wtforms
 wtforms.validators
 opencv-python
 numpy
+torch 
+torchvision 
+Pillow 
+efficientnet_pytorch
+io
+json
