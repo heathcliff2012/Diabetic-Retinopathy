@@ -6,61 +6,6 @@
     <title>RetinaLytix - AI-Driven Retinopathy Analysis</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        // Professional blue/green palette for health-tech
-                        primary: {
-                            light: '#E0F2F1', // teal-50
-                            DEFAULT: '#00796B', // teal-700
-                            dark: '#004D40', // teal-900
-                        },
-                        secondary: {
-                            light: '#E3F2FD', // blue-50
-                            DEFAULT: '#1E88E5', // blue-600
-                            dark: '#0D47A1', // blue-900
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Import Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Base styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        /* Style for the "dashboard" view to have a different background */
-        body.dashboard-bg {
-            background-color: #f8fafc; /* gray-50 */
-        }
-        /* Style for the "website" view */
-        body.website-bg {
-            background-color: #ffffff; /* white */
-        }
-        /* Custom styles for file upload dropzone */
-        .dropzone {
-            border: 2px dashed #cbd5e1; /* gray-300 */
-            transition: all 0.3s ease;
-        }
-        .dropzone.dragover {
-            border-color: #1E88E5; /* secondary.DEFAULT */
-            background-color: #E3F2FD; /* secondary.light */
-        }
-    </style>
 </head>
 <body class="website-bg text-gray-800">
 
