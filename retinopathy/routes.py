@@ -13,6 +13,12 @@ patient_image = {
     'mobile number': 9999999999
 }
 
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('try.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -42,10 +48,13 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+<<<<<<< Updated upstream
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
+=======
+>>>>>>> Stashed changes
 
 
 
