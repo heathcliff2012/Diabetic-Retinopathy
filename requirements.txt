@@ -1,10 +1,10 @@
-flask
-flask_login
-flask_sqlalchemy
-flask_bcrypt
-flask_login
-flask-Migrate
-flask_wtf
+Flask
+Flask_login
+Flask_sqlalchemy
+Flask_bcrypt
+Flask_login
+Flask-Migrate
+Flask_wtf
 wtforms
 wtforms.validators
 opencv-python

@@ -64,3 +64,20 @@ input[type="submit"]:hover {
     background-color: #0056b3;
     transform:scale(1.01);
 }
+
+body.dashboard-bg {
+    background-color: #f8fafc;
+}
+
+body.website-bg {
+    background-color: #ffffff; 
+}
+
+.dropzone {
+    border: 2px dashed #cbd5e1; 
+    transition: all 0.3s ease;
+}
+.dropzone.dragover {
+    border-color: #1E88E5; 
+    background-color: #E3F2FD;
+}
