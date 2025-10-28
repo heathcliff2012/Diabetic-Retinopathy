@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from retinopathy.modules import User
 
@@ -39,6 +39,6 @@ class PatientForm(FlaskForm):
     patient_id = StringField('Patient ID', validators=[DataRequired()])
     right_eye_diagnosis = StringField('Right Eye Diagnosis', validators=[DataRequired()])
     left_eye_diagnosis = StringField('Left Eye Diagnosis', validators=[DataRequired()])
-    right_eye_image = StringField('Right Eye Image', validators=[DataRequired()])
-    left_eye_image = StringField('Left Eye Image', validators=[DataRequired()])
+    right_eye_image = FileField('Right Eye Image', validators=[DataRequired()])
+    left_eye_image = FileField('Left Eye Image', validators=[DataRequired()])
     submit = SubmitField('Add Patient')
