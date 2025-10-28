@@ -49,7 +49,25 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/patient-history')
+@login_required
+def patient_history():
+    patients = Patient.query.filter_by(user_id=current_user.id).all()
+    return render_template('patienthistory.html', patients=patients)
 
+@app.route('/patient-report/<int:patient_id>')
+@login_required
+def patient_report(patient_id):
+    patient = Patient.query.get_or_404(patient_id)
+    return render_template('patientreport.html', patient=patient)
+
+@app.route('/analyze-image', methods=['GET', 'POST'])
+@login_required
+def analyze_image():
+    if request.method == 'POST':
+        # Handle image upload and analysis
+        pass
+    return render_template('scanpatient.html')
 
 @login_required
 @app.route('/logout')
