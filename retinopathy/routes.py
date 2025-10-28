@@ -5,14 +5,23 @@ from retinopathy.modules import User, Patient
 from flask_login import login_user,current_user,logout_user, login_required
 from retinopathy.efficientnet_b3 import model, preprocess_retina_image
 
-patient_image = { 
-    'date' : '2024-06-01',
-    'image' : 'retinopathy/static/images/sample_retina.jpg',
-    'name' : 'John Doe',
-    'age'  : 45,
-    'diagnosis' : 'Mild Non-Proliferative Diabetic Retinopathy',
-    'mobile number': 9999999999
-}
+patients = [
+    {
+        'id': 1,
+        'name': 'John Doe',
+        'age': 45,
+        'sex': 'Male',
+        'date': '11-11-11'
+    },
+    {
+        'id': 2,
+        'name': 'Jane Smith',
+        'age': 50,
+        'sex': 'Female',
+        'date': '12-12-12'
+    }
+]       
+
 
 @app.route('/')
 @app.route('/home')
