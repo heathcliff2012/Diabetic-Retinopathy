@@ -14,8 +14,7 @@
         <!-- Sidebar Navigation -->
         <aside class="w-64 bg-white shadow-md hidden md:block">
             <div class="py-4 px-6">
-                <h2 class="text-lg font-semibold text-gray-900">Clinician Dashboard</h2>
-                <p class="text-sm text-gray-600">Welcome, Dr. Hemanth</p>
+                <b class="text-sm text-gray-600">Welcome, Dr. Hemanth</b>
             </div>
             <nav class="mt-6">
                 <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
@@ -39,9 +38,17 @@
                 <div class="flex space-x-6">
                     <div class="w-64 bg-gray-300 flex h-32 rounded-md">
                         <h3 class="text-lg font-semibold text-gray-900">Patient's Right Eye</h3>
+                        <input type="file" id="right-eye-upload" class="hidden" accept="image/*">
+                        <button type="button" class="upload-btn bg-gray-300" onclick="document.getElementById('right-eye-upload').click();">
+                            Upload
+                        </button>
                     </div>
                     <div class="w-64 bg-gray-300 flex h-32 rounded-md">
                         <h3 class="text-lg font-semibold text-gray-900">Patient's Left Eye</h3>
+                        <input type="file" id="left-eye-upload" class="hidden" accept="image/*">
+                        <button type="button" class="upload-btn bg-gray-300" onclick="document.getElementById('left-eye-upload').click();">
+                            Upload
+                        </button>
                     </div>
                 </div>
                 <div id="upload-status" class="mt-4 max-w-2xl hidden">
@@ -75,28 +82,16 @@
                             <b for="patient-gender-female">Female</b>
                         </div>
                         <div>
-                            <label for="patient-eye">Patient Eye</label>
-                            <input type="image" class="m-2 mb-3 mt-2" id="patient-eye-left" name="patient_eye" value="Left">
-                            <button type="button" class="upload-btn border bg-gray-100" onclick="document.getElementById('file-upload').click();" >
-                                Upload
-                            </button>
-                            <br>
-                            <input type="image" class="m-2 mb-3 mt-2" id="patient-eye-right" name="patient_eye" value="Right">
-                            <button type="button" class="upload-btn border bg-gray-100" onclick="document.getElementById('file-upload').click();" >
-                                Upload
-                            </button>
-                        </div>
-                        <div>
                             <label for="scan-date">Scan Date</label>
                             <input type="date" id="scan-date" name="scan_date" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Scan Date" required>
                         </div>
                     </fieldset>
-                    <button type="submit" class="m-20 px-4 py-2 mt-3 bg-secondary text-white rounded-md hover:bg-secondary-dark">Submit</button>
+                    <button type="submit" class="m-20 px-4 py-2 mt-3 bg-secondary text-white rounded-md hover:bg-secondary-dark">Analyze</button>
                 </form>
             </div>
         </main>
     </div>
-{% endblock content%}
+{% endblock content %}
 
 {% block scripts %}
 {% endblock scripts %}
