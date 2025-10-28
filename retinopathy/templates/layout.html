@@ -47,8 +47,8 @@
                     
                     <!-- Desktop Navigation -->
                     <div class="hidden md:flex md:items-center md:space-x-8">
-                        <a href="#" data-page="home" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
-                        <a href="#" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                        <a href="{{ url_for('home') }}" data-page="home" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
+                        <a href="{{ url_for('about') }}" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
                         <a href="#" data-page="contact" class="font-medium text-gray-600 hover:text-primary transition">Contact</a>
                     </div>
                     
@@ -84,10 +84,10 @@
                 <!-- Mobile Menu (hidden by default) -->
                 <div id="mobile-menu" class="md:hidden hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <a href="#" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
-                        <a href="#" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
+                        <a href="{{ url_for('home') }}" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
+                        <a href="{{ url_for('about') }}" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
                         <a href="#" data-page="contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Contact</a>
-                        <a href="#" data-page="patient-list" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
+                        <a href="{{ url_for('patient_history') }}" data-page="patient-list" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
                     </div>
                 </div>
             </nav>

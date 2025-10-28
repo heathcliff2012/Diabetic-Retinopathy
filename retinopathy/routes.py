@@ -78,7 +78,10 @@ def analyze_image():
         pass
     return render_template('scanpatient.html')
 
-@login_required
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
+
 @app.route('/logout')
 def logout():
     logout_user()
