@@ -114,7 +114,7 @@ def analyze_image():
         db.session.add(patient)
         db.session.commit()
         flash('Patient added successfully!', 'success')
-        return redirect(url_for('patient_report/<int:patient_id>', patient_id=patient.id))
+        return redirect(url_for('patient_report/', patient_id=patient.id))
 
     # --- 4. RENDER TEMPLATE on GET request or if form is INVALID ---
     # This 'return' is now *outside* the 'if' block.
