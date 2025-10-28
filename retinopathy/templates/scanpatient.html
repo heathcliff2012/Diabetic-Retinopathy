@@ -120,66 +120,11 @@
 
         </fieldset>
         <div class="form-group">
-            {{ form.submit() }}
+            {{ form.submit(class="btn bg-gray-200 mt-2 w-64 border rounded-full") }}
         </div>
     </form>
 </div>
                 
-            <div class="mt-8">
-                <div class="flex space-x-6">
-                    <div class="w-64 bg-gray-300 flex h-32 rounded-md">
-                        <h3 class="text-lg font-semibold text-gray-900">Patient's Right Eye</h3>
-                        <input type="file" id="right-eye-upload" class="hidden" accept="image/*">
-                        <button type="button" class="upload-btn bg-gray-300" onclick="document.getElementById('right-eye-upload').click();">
-                            Upload
-                        </button>
-                    </div>
-                    <div class="w-64 bg-gray-300 flex h-32 rounded-md">
-                        <h3 class="text-lg font-semibold text-gray-900">Patient's Left Eye</h3>
-                        <input type="file" id="left-eye-upload" class="hidden" accept="image/*">
-                        <button type="button" class="upload-btn bg-gray-300" onclick="document.getElementById('left-eye-upload').click();">
-                            Upload
-                        </button>
-                    </div>
-                </div>
-                <div id="upload-status" class="mt-4 max-w-2xl hidden">
-                    <div class="flex items-center p-4 rounded-md bg-blue-50 border border-blue-200">
-                        <svg class="h-5 w-5 text-blue-500 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        <p class="ml-3 text-sm font-medium text-blue-700">Analyzing image... Please wait.</p>
-                    </div>
-                </div>
-                <div id="upload-result" class="mt-4 max-w-2xl hidden">
-                    <!-- Success/Error message will be injected here -->
-                </div>
-                <form action="" method="post" class="mt-6" id="patient-info-form">
-                    <fieldset class="form-group">
-                        <div>
-                            <label for="patient-id">Patient ID</label>
-                            <input type="text" id="patient-id" name="patient_id" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient ID" required>
-                        </div>
-                        <div>
-                            <label for="patient-name">Patient Name</label>
-                            <input type="text" id="patient-name" name="patient_name" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient Name" required>
-                        </div>
-                        <div>
-                            <label for="patient-age">Patient Age</label>
-                            <input type="text" id="patient-age" name="patient_age" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Patient Age" required>
-                        </div>
-                        <div>
-                            <label for="patient-gender">Patient Gender</label>
-                            <input type="radio" id="patient-gender-male" name="patient_gender" value="Male">
-                            <b for="patient-gender-male">Male</b>
-                            <input type="radio" id="patient-gender-female" name="patient_gender" value="Female">
-                            <b for="patient-gender-female">Female</b>
-                        </div>
-                        <div>
-                            <label for="scan-date">Scan Date</label>
-                            <input type="date" id="scan-date" name="scan_date" class="form-control mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-secondary focus:border-secondary" placeholder="Enter Scan Date" required>
-                        </div>
-                    </fieldset>
-                    <button type="submit" class="m-20 px-4 py-2 mt-3 bg-secondary text-white rounded-md hover:bg-secondary-dark">Analyze</button>
-                </form>
-            </div>
         </main>
     </div>
 {% endblock content %}
