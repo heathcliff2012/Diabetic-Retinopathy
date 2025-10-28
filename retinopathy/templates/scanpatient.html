@@ -40,8 +40,8 @@
         <fieldset class="form-group">
             
             <div class="form-group">
-                {{ form.right_eye_image.label() }}
-                {{ form.right_eye_image() }}
+                {{ form.right_eye_image.label(class="form-control-label") }}
+                {{ form.right_eye_image(class="form-control-file") }}
                 {% if form.right_eye_image.errors %}
                     <div class="invalid-feedback d-block">
                         {% for error in form.right_eye_image.errors %}
