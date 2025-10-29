@@ -6,25 +6,7 @@ from flask_login import login_user,current_user,logout_user, login_required
 from retinopathy.efficientnet_b3 import model, preprocess_retina_image
 from PIL import Image
 import os
-import secrets
-
-patients = [
-    {
-        'id': 1,
-        'name': 'John Doe',
-        'age': 45,
-        'sex': 'Male',
-        'date': '11-11-11'
-    },
-    {
-        'id': 2,
-        'name': 'Jane Smith',
-        'age': 50,
-        'sex': 'Female',
-        'date': '12-12-12'
-    }
-]       
-
+import secrets      
 
 @app.route('/')
 @app.route('/home')
@@ -64,7 +46,7 @@ def register():
 @app.route('/patienthistory')
 @login_required
 def patient_history():
-    #patients = Patient.query.filter_by(user_id=current_user.id).all()
+    patients = Patient.query.filter_by(user_id=current_user.id).all()
     return render_template('patienthistory.html', patients=patients)
 
 @app.route('/patient-report/<int:patient_id>')
@@ -83,54 +65,51 @@ def save_picture(form_picture):
     return picture_fn
 
 
+# Make sure you've imported request
+
 @app.route('/analyzeimage', methods=['GET', 'POST'])
 @login_required
 def analyze_image():
     form = PatientForm()
+
+    # --- START OF TEMPORARY DEBUGGING ---
+    if request.method == 'POST':
+        print("-----------------------------------------")
+        print("FORM HAS BEEN POSTED. CHECKING DATA...")
+        
+        # Manually run validation
+        is_valid = form.validate()
+        
+        print(f"Was form valid? {is_valid}")
+        print(f"FORM ERRORS: {form.errors}")
+        print(f"FORM DATA RECEIVED: {request.form}")
+        print("-----------------------------------------")
+    # --- END OF TEMPORARY DEBUGGING ---
+    
     if form.validate_on_submit():
-        # --- 1. SAVE THE IMAGE FILES FIRST ---
-        if form.right_eye_image.data:
-            right_image_filename = save_picture(form.right_eye_image.data)
-        else:
-            right_image_filename = 'default.jpg' # Or handle as required
-            
-        if form.left_eye_image.data:
-            left_image_filename = save_picture(form.left_eye_image.data)
-        else:
-            left_image_filename = 'default.jpg' # Or handle as required
-
-        # --- 2. CREATE PATIENT WITH THE *FILENAMES* ---
+        right_eye_picture_file = save_picture(form.right_eye_image.data)
+        left_eye_picture_file = save_picture(form.left_eye_image.data)
         patient = Patient(
             patient_id=form.patient_id.data,
             name=form.name.data,
             age=form.age.data,
-            sex=form.sex.data,
-            right_eye_file=right_image_filename,
-            left_eye_file=left_image_filename
+            sex=form.sex.data,  # <-- You were missing this!
+            user_id=current_user.id,
+            RightEye_image_file=right_eye_picture_file,
+            LeftEye_image_file=left_eye_picture_file,
+            RightEye_diagnosis=form.right_eye_diagnosis.data,
+            LeftEye_diagnosis=form.left_eye_diagnosis.data
         )
-        flash("Patient data Created", "Success")
-        patient = Patient(
-            patient_id=form.patient_id.data,
-            name=form.name.data,
-            age=form.age.data,
-            sex=form.sex.data,
-            right_eye_file=right_image_filename,
-            left_eye_file=left_image_filename
-        )
-
         db.session.add(patient)
         db.session.commit()
         flash('Patient added successfully!', 'success')
-        return redirect(url_for('home', patient_id=patient.id))
-    return render_template('scanpatient.html',form=form, title='Scan Patient')
 
+    # You can also remove the debug 'print' statements from here
+            # LeftEye_diagnosis='No diagnosis yet
 
-    # --- 4. RENDER TEMPLATE on GET request or if form is INVALID ---
-    # This 'return' is now *outside* the 'if' block.
-    return render_template('scanpatient.html',form=form, title='Scan Patient')
-@app.route('/about', methods=['GET', 'POST'])
-def about():
-    return render_template('about.html', title='About')
+    # You can also remove the debug 'print' statements from here
+    return render_template('scanpatient.html', title='Analyze Image', form=form)
+
 
 @app.route('/logout')
 def logout():

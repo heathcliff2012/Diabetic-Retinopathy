@@ -1,45 +1,16 @@
-{% extends "layout.html" %}
-
-{% block content %}
-<style>
-    label {
-        display: block;
-        margin-top: 1rem;
-        font-weight: 600;
-        color: #374151; /* Tailwind's gray-700 */
-    }
-</style>
-    <div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
-        
-        <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-white shadow-md hidden md:block">
-            <div class="py-4 px-6">
-                <b class="text-sm text-gray-600">Welcome, Dr. Hemanth</b>
-            </div>
-            <nav class="mt-6">
-                <a href="#" data-page="scan-patient" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                    <span class="ml-3">Scan New Patient</span>
-                </a>
-                <a href="{{ url_for('patient_history') }}" data-page="patient-list" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18c-2.305 0-4.408.867-6 2.292m0-14.25v14.25" /></svg>
-                    <span class="ml-3">Patient History</span>
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Dashboard Content -->
-        <main class="flex-1 overflow-y-auto p-8">
-            <h1 class="text-3xl font-bold text-gray-900">Upload New Scan</h1>
-            <p class="mt-2 text-gray-600">Upload a patient's retinal image to begin the analysis.</p>
-
-            <!-- Upload Component -->
-     <div class="content-section">
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Patient - Diabetic Retinopathy Detection</title>
+</head>
+<body>
+    <div class="content-section">
     <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             
-            <div class="form-group">
+            <!-- <div class="form-group">
                 {{ form.right_eye_image.label(class="form-control-label") }}
                 {{ form.right_eye_image(class="form-control-file") }}
                 {% if form.right_eye_image.errors %}
@@ -61,73 +32,101 @@
                         {% endfor %}
                     </div>
                 {% endif %}
+            </div> -->
+    {{ form.hidden_tag() }} <div>
+        {{ form.patient_id.label }}
+        {{ form.patient_id() }}
+        {% if form.patient_id.errors %}
+            <div class="error-messages">
+                {% for error in form.patient_id.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
+        {% endif %}
+    </div>
 
-            <div class="form-group">
-                {{ form.patient_id.label(class="form-control-label") }}
-                {% if form.patient_id.errors %}
-                    {{ form.patient_id(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.patient_id.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.patient_id(class="form-control form-control-lg") }}
-                {% endif %}
+    <div>
+        {{ form.name.label }}
+        {{ form.name() }}
+        {% if form.name.errors %}
+            <div class="error-messages">
+                {% for error in form.name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
-
-            <div class="form-group">
-                {{ form.name.label(class="form-control-label") }}
-                {% if form.name.errors %}
-                    {{ form.name(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.name.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.name(class="form-control form-control-lg") }}
-                {% endif %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.age.label }}
+        {{ form.age() }}
+        {% if form.age.errors %}
+            <div class="error-messages">
+                {% for error in form.age.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
-
-            <div class="form-group">
-                {{ form.age.label(class="form-control-label") }}
-                {% if form.age.errors %}
-                    {{ form.age(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.age.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.age(class="form-control form-control-lg") }}
-                {% endif %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.sex.label }}
+        {{ form.sex() }}
+        {% if form.sex.errors %}
+            <div class="error-messages">
+                {% for error in form.sex.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
-            <div class="form-group">
-                {{ form.sex.label(class="form-control-label") }}
-                {% if form.sex.errors %}
-                    {{ form.sex(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.sex.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.sex(class="form-control form-control-lg") }}
-                {% endif %}
+        {% endif %}
+    </div>
+    <div>
+        {{ form.right_eye_diagnosis.label }}
+        {{ form.right_eye_diagnosis() }}
+        {% if form.right_eye_diagnosis.errors %}
+            <div class="error-messages">
+                {% for error in form.right_eye_diagnosis.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
             </div>
-
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn bg-gray-200 mt-2 w-64 border rounded- 25") }}
-        </div>
-    </form>
-</div>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.left_eye_diagnosis.label }}
+        {{ form.left_eye_diagnosis() }}
+        {% if form.left_eye_diagnosis.errors %}
+            <div class="error-messages">
+                {% for error in form.left_eye_diagnosis.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    <div>
+    <div>
+        {{ form.right_eye_image.label }}
+        {{ form.right_eye_image() }}
+        {% if form.right_eye_image.errors %}
+            <div class="error-messages">
+                {% for error in form.right_eye_image.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div>
+        {{ form.left_eye_image.label }}
+        {{ form.left_eye_image() }}
+        {% if form.left_eye_image.errors %}
+            <div class="error-messages">
+                {% for error in form.left_eye_image.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+        {{ form.submit() }}
+    </div>
+</form>
                 
         </main>
     </div>
-{% endblock content %}
-
-{% block scripts %}
-{% endblock scripts %}
+</body>
+</html>

@@ -33,10 +33,11 @@ class UpdateAccountForm(FlaskForm):
     submit = SubmitField('update')
 
 class PatientForm(FlaskForm):
+    #user_id = StringField('User ID', validators=[DataRequired()])
+    patient_id = StringField('Patient ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
     age = StringField('Age', validators=[DataRequired()])
     sex = StringField('Sex', validators=[DataRequired()])
-    patient_id = StringField('Patient ID', validators=[DataRequired()])
     right_eye_diagnosis = StringField('Right Eye Diagnosis', validators=[DataRequired()])
     left_eye_diagnosis = StringField('Left Eye Diagnosis', validators=[DataRequired()])
     right_eye_image = FileField('Right Eye Image', validators=[DataRequired()])

@@ -18,8 +18,7 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 class Patient(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    patient_id = db.Column(db.String(20), unique = True, nullable = False)
+    patient_id = db.Column(db.String(20), unique = True, nullable = False, primary_key = True)
     name = db.Column(db.String(100), nullable = False)
     age = db.Column(db.Integer, nullable = False)
     sex = db.Column(db.String(10), nullable = False)
