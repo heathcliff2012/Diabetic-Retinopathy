@@ -10,6 +10,7 @@ from retinopathy import app, db
 # No current_user here
 
 with app.app_context():
+    db.drop_all()
     db.create_all()
     
     # 1. Find the user you want to link the patient to
