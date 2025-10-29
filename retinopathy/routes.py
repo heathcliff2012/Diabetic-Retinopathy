@@ -64,7 +64,7 @@ def register():
 @app.route('/patienthistory')
 @login_required
 def patient_history():
-    patients = Patient.query.filter_by(user_id=current_user.id).all()
+    #patients = Patient.query.filter_by(user_id=current_user.id).all()
     return render_template('patienthistory.html', patients=patients)
 
 @app.route('/patient-report/<int:patient_id>')
@@ -78,10 +78,7 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/Eye_pictures', picture_fn)
-
-    output_size = (125, 125)
     i = Image.open(form_picture)
-    i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
 
@@ -111,14 +108,26 @@ def analyze_image():
             right_eye_file=right_image_filename,
             left_eye_file=left_image_filename
         )
+        flash("Patient data Created", "Success")
+        patient = Patient(
+            patient_id=form.patient_id.data,
+            name=form.name.data,
+            age=form.age.data,
+            sex=form.sex.data,
+            right_eye_file=right_image_filename,
+            left_eye_file=left_image_filename
+        )
+
         db.session.add(patient)
         db.session.commit()
         flash('Patient added successfully!', 'success')
-        return redirect(url_for('patient_report/', patient_id=patient.id))
+        return redirect(url_for('home', patient_id=patient.id))
+    return render_template('scanpatient.html',form=form, title='Scan Patient')
+
 
     # --- 4. RENDER TEMPLATE on GET request or if form is INVALID ---
     # This 'return' is now *outside* the 'if' block.
-    return render_template('scanpatient.html', form=form, title='Scan Patient')
+    return render_template('scanpatient.html',form=form, title='Scan Patient')
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     return render_template('about.html', title='About')
