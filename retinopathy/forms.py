@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from retinopathy.modules import User
+from retinopathy.modules import Patient, User
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -38,8 +38,10 @@ class PatientForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
     age = StringField('Age', validators=[DataRequired()])
     sex = StringField('Sex', validators=[DataRequired()])
-    right_eye_diagnosis = StringField('Right Eye Diagnosis', validators=[DataRequired()])
-    left_eye_diagnosis = StringField('Left Eye Diagnosis', validators=[DataRequired()])
     right_eye_image = FileField('Right Eye Image', validators=[DataRequired()])
     left_eye_image = FileField('Left Eye Image', validators=[DataRequired()])
     submit = SubmitField('Add Patient')
+    def validate_patient_id(self, patient_id):
+        patient = Patient.query.filter_by(patient_id=patient_id.data).first()
+        if patient:
+            raise ValidationError('Patient ID already exists. Please choose a different one.')
