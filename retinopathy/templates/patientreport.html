@@ -1,1 +1,22 @@
-patient report
+{% extends "layout.html" %}
+
+{% block title %}Patient Report{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <main>
+            <h1>Patient Report</h1>
+            <div class="report-section">
+                <h2>Patient Information</h2>
+                <p><strong>Name:</strong> {{ patient.name }}</p>
+                <p><strong>Age:</strong> {{ patient.age }}</p>
+                <p><strong>Patient ID:</strong> {{ patient.patient_id }}</p>
+                <p><strong>Report Date:</strong> {{ report.date }}</p>
+                
+                    <span>{{ error }}</span>
+
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
