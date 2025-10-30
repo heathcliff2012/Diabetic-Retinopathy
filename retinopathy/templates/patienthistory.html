@@ -54,7 +54,7 @@
                                 <td class="px-16 py-4 whitespace-nowrap text-sm text-gray-500">{{ patient.sex }}</td>
                                 <td class="px-16 py-4 whitespace-nowrap text-sm text-gray-500">{{ patient.date_uploaded }}</td>
                                 <td class="px-16 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{ url_for('patient_report', patient_id=patient.user_id) }}" class="text-secondary-DEFAULT hover:text-secondary-dark">View Report</a>
+                                    <a href="{{ url_for('patient_report', patient_id=patient.patient_id) }}" class="text-secondary-DEFAULT hover:text-secondary-dark">View Report</a>
                                 </td>
                             </tr>
                         {% endfor %}

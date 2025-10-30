@@ -1,1 +1,41 @@
-patient report
+{% extends "layout.html" %}
+
+{% block title %}Patient Report{% endblock title %}
+
+{% block content %}
+    <div class="container">
+    <main>
+        <h1>Patient Report</h1>
+        <div class="report-section">
+            <h2>Patient Information</h2>
+            <p><strong>Name:</strong> {{ patient.name }}</p>
+            <p><strong>Age:</strong> {{ patient.age }}</p>
+            <p><strong>Patient ID:</strong> {{ patient.patient_id }}</p>
+            <p><strong>Report Date:</strong> {{ patient.date_uploaded.strftime('%Y-%m-%d') }}</p>
+            
+            <hr> <h2>Analysis Results</h2>
+            <p><strong>Right Eye Diagnosis:</strong> {{ patient.RightEye_diagnosis }}</p>
+            <p><strong>Left Eye Diagnosis:</strong> {{ patient.LeftEye_diagnosis }}</p>
+
+            
+
+            <hr> <h2>Original Eye Scans</h2>
+            <p><strong>Right Eye Image:</strong></p>
+            <img src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file) }}" alt="Right Eye Image" class="report-image">
+
+            <p><strong>Left Eye Image:</strong></p>
+            <img src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file) }}" alt="Left Eye Image" class="report-image">
+            
+            <h2>Processed Images</h2>
+            <p><strong>Processed Right Eye:</strong></p>
+            <img src="{{ url_for('static', filename='processed_images/' + patient.processed_RightEye_image_file) }}" alt="Processed Right Eye" class="report-image">
+            
+            <p><strong>Processed Left Eye:</strong></p>
+            <img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file) }}" alt="Processed Left Eye" class="report-image">
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,10 +1,6 @@
-<html lang="en">
-<head>  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan Patient - Diabetic Retinopathy Detection</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block content %}
     <div class="content-section">
     <form method="POST" action="" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
@@ -78,7 +74,7 @@
             </div>
         {% endif %}
     </div>
-    <div>
+    <!-- <div>
         {{ form.right_eye_diagnosis.label }}
         {{ form.right_eye_diagnosis() }}
         {% if form.right_eye_diagnosis.errors %}
@@ -88,8 +84,8 @@
                 {% endfor %}
             </div>
         {% endif %}
-    </div>
-    <div>
+    </div> -->
+    <!-- <div>
         {{ form.left_eye_diagnosis.label }}
         {{ form.left_eye_diagnosis() }}
         {% if form.left_eye_diagnosis.errors %}
@@ -99,7 +95,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-    <div>
+    <div> -->
     <div>
         {{ form.right_eye_image.label }}
         {{ form.right_eye_image() }}
@@ -128,5 +124,7 @@
                 
         </main>
     </div>
-</body>
-</html>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
