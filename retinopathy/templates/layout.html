@@ -55,14 +55,16 @@
                     
                     <!-- Login Button & Mobile Menu Button -->
                      {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('login') }}" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
-                            Clinician Login
+                     <div class="flex  justify-center gap-10 ">
+                        <a href="{{ url_for('login') }}" data-page="patient-list" class="hidden md:inline-flex px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
+                            Login
                         </a>
-                        <a href="{{ url_for('register') }}" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                        <a href="{{ url_for('register') }}" data-page="patient-list" class="hidden md:inline-flex px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
                              Register
                         </a>
+                    </div>
                     {% else %}
-                        <a href="{{ url_for('logout') }}" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                        <a href="{{ url_for('logout') }}" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
                             Logout
                         </a>
                     {% endif %}
