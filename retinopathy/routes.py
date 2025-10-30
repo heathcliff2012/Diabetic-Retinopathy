@@ -225,11 +225,11 @@ def patient_history():
     patients = Patient.query.filter_by(user_id=current_user.id).all()
     return render_template('patienthistory.html', patients=patients)
 
-@app.route('/patient-report/<int:patient_id>')
+@app.route('/patient-report/<patient_id>')
 @login_required
 def patient_report(patient_id):
     patient = Patient.query.get_or_404(patient_id)
-    return render_template('patientreport.html', patient=patient)
+    return render_template('patientreport.html', patient=patient, patient_id=patient_id)
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
