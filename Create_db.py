@@ -42,6 +42,6 @@ with app.app_context():
         print(f"Found {len(patients)} patients for user {user.id}:")
         print(user.username, user.email)
         for patient in patients:
-            print(f"Patient ID: {patient.patient_id}, Name: {patient.name}, Age: {patient.age}")
+            print(f"Patient ID: {patient.patient_id}, Name: {patient.name}, Age: {patient.age}", "Right Eye Diagnosis:", patient.RightEye_diagnosis, "Left Eye Diagnosis:", patient.LeftEye_diagnosis, "Date Uploaded:", patient.date_uploaded, "RightEye Probability:", patient.RightEye_prediction, "LeftEye Probability:", patient.LeftEye_prediction)
     else:
         print("User not found. Cannot query patients.")

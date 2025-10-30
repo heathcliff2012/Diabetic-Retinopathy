@@ -105,9 +105,12 @@ eval_transforms = A.Compose([
 class_names = ['class_0', 'class_1', 'class_2', 'class_3', 'class_4'] # <-- REPLACE THIS with your 5 classes
 
 # --- 6. Prediction Function ---
+# In your utils.py or routes.py
+
 def get_prediction(image_bytes):
     """
-    Applies the full custom pipeline and returns a prediction.
+    Applies the full custom pipeline and returns a prediction
+    and the processed image array.
     """
     try:
         # 1. Apply your custom CV preprocessing (crop, green, clahe, resize)
@@ -115,9 +118,10 @@ def get_prediction(image_bytes):
         
         if image_2d is None:
             print("Preprocessing failed, returned None.")
-            return None, None
+            return None, None, None # Return 3 Nones
 
         # 2. Stack 2D grayscale image to 3-channels
+        # This is the array we want to save
         image_3d = np.stack([image_2d] * 3, axis=-1)
 
         # 3. Apply normalization and ToTensor
@@ -137,11 +141,48 @@ def get_prediction(image_bytes):
         predicted_class_name = class_names[top_idx.item()]
         predicted_prob = top_prob.item()
 
-        return predicted_class_name, predicted_prob
+        # --- THIS IS THE CHANGE ---
+        # Return the diagnosis, probability, AND the processed image array
+        return predicted_class_name, predicted_prob, image_3d
 
     except Exception as e:
         print(f"Error during prediction: {e}")
-        return None, None
+        return None, None, None # Return 3 Nones
+    
+    # In your utils.py or routes.py
+
+def save_processed_picture(image_array):
+    """
+    Saves a processed numpy image array to the static folder
+    and returns the filename.
+    """
+    if image_array is None:
+        return None
+        
+    try:
+        # 1. Convert numpy array (H, W, 3) back to a PIL Image
+        # We use .astype() to make sure it's in a format PIL understands
+        img = Image.fromarray(image_array.astype(np.uint8))
+        
+        # 2. Generate a unique filename
+        random_hex = secrets.token_hex(8)
+        filename = random_hex + '.jpg'
+        
+        # 3. Create the full save path
+        # (Make sure you've created the 'static/processed_images' folder)
+        save_path = os.path.join(current_app.root_path, 
+                                 'static/processed_images', 
+                                 filename)
+        
+        # 4. Save the image
+        img.save(save_path)
+        
+        # 5. Return the filename
+        return filename
+    
+    except Exception as e:
+        print(f"Error saving processed picture: {e}")
+        return None
 
 @app.route('/')
 @app.route('/home')
@@ -184,11 +225,11 @@ def patient_history():
     patients = Patient.query.filter_by(user_id=current_user.id).all()
     return render_template('patienthistory.html', patients=patients)
 
-@app.route('/patient-report/<int:patient_id>')
+@app.route('/patient-report/<patient_id>')
 @login_required
 def patient_report(patient_id):
     patient = Patient.query.get_or_404(patient_id)
-    return render_template('patientreport.html', patient=patient)
+    return render_template('patientreport.html', patient=patient, patient_id=patient_id)
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -206,38 +247,62 @@ def save_picture(form_picture):
 @login_required
 def analyze_image():
     form = PatientForm()
-
-    # --- START OF TEMPORARY DEBUGGING ---
-    if request.method == 'POST':
-        print("-----------------------------------------")
-        print("FORM HAS BEEN POSTED. CHECKING DATA...")
-        
-        # Manually run validation
-        is_valid = form.validate()
-        
-        print(f"Was form valid? {is_valid}")
-        print(f"FORM ERRORS: {form.errors}")
-        print(f"FORM DATA RECEIVED: {request.form}")
-        print("-----------------------------------------")
-    # --- END OF TEMPORARY DEBUGGING ---
     
     if form.validate_on_submit():
-        right_eye_picture_file = save_picture(form.right_eye_image.data)
-        left_eye_picture_file = save_picture(form.left_eye_image.data)
+        
+        # --- 1. Get the FileStorage objects ---
+        right_eye_data = form.right_eye_image.data
+        left_eye_data = form.left_eye_image.data
+
+        # --- 2. Read the bytes for prediction ---
+        # This is the first read
+        right_eye_bytes = right_eye_data.read()
+        left_eye_bytes = left_eye_data.read()
+
+        # --- 3. REWIND the stream ---
+        # This allows other functions (like save_picture) to read it again
+        right_eye_data.seek(0)
+        left_eye_data.seek(0)
+
+        # --- 4. Save original images ---
+        # This second read will now work
+        right_eye_picture_file = save_picture(right_eye_data)
+        left_eye_picture_file = save_picture(left_eye_data)
+        
+        # --- 5. Get predictions using the bytes from step 2 ---
+        RightEye_diagnosis, RightEye_prediction, right_processed_array = get_prediction(right_eye_bytes)
+        LeftEye_diagnosis, LeftEye_prediction, left_processed_array = get_prediction(left_eye_bytes)
+
+        # --- 6. Save the processed images ---
+        processed_right_eye_image_file = save_processed_picture(right_processed_array)
+        processed_left_eye_image_file = save_processed_picture(left_processed_array)
+
+        # --- 7. Create Patient ---
         patient = Patient(
             patient_id=form.patient_id.data,
             name=form.name.data,
             age=form.age.data,
-            sex=form.sex.data,  # <-- You were missing this!
+            sex=form.sex.data, 
             user_id=current_user.id,
+            
             RightEye_image_file=right_eye_picture_file,
             LeftEye_image_file=left_eye_picture_file,
-            RightEye_diagnosis=form.right_eye_diagnosis.data,
-            LeftEye_diagnosis=form.left_eye_diagnosis.data
+            
+            processed_RightEye_image_file=processed_right_eye_image_file,
+            processed_LeftEye_image_file=processed_left_eye_image_file,
+            
+            RightEye_diagnosis=RightEye_diagnosis,
+            LeftEye_diagnosis=LeftEye_diagnosis,
+            RightEye_prediction=RightEye_prediction,
+            LeftEye_prediction=LeftEye_prediction
         )
+        
         db.session.add(patient)
         db.session.commit()
         flash('Patient added successfully!', 'success')
+        # Redirect to the patient's report page after success
+        return redirect(url_for('patient_report', patient_id=patient.patient_id))
+
     return render_template('scanpatient.html', title='Analyze Image', form=form)
 
 

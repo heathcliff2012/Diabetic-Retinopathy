@@ -28,8 +28,10 @@ class Patient(db.Model):
     LeftEye_diagnosis = db.Column(db.String(200), nullable = False)
     date_uploaded = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-    proocessed_RightEye_image_file = db.Column(db.String(100), nullable = True)
+    processed_RightEye_image_file = db.Column(db.String(100), nullable = True)
     processed_LeftEye_image_file = db.Column(db.String(100), nullable = True)
+    RightEye_prediction = db.Column(db.Integer, nullable = True)
+    LeftEye_prediction = db.Column(db.Integer, nullable = True)
 
     def __repr__(self):
-        return f"Patient('{self.name}', '{self.age}', '{self.RightEye_image_file}', '{self.LeftEye_image_file}', '{self.diagnosis}', '{self.date_uploaded}')"
+        return f"Patient('{self.name}', '{self.age}', '{self.RightEye_image_file}', '{self.LeftEye_image_file}', '{self.RightEye_diagnosis}', '{self.LeftEye_diagnosis}', '{self.date_uploaded}')"

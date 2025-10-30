@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField
+from wtforms import IntegerField, StringField, PasswordField, SubmitField, BooleanField, FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from retinopathy.modules import Patient, User
 
@@ -36,11 +36,21 @@ class PatientForm(FlaskForm):
     #user_id = StringField('User ID', validators=[DataRequired()])
     patient_id = StringField('Patient ID', validators=[DataRequired()])
     name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
-    age = StringField('Age', validators=[DataRequired()])
+    age = IntegerField('Age', validators=[DataRequired()])
     sex = StringField('Sex', validators=[DataRequired()])
     right_eye_image = FileField('Right Eye Image', validators=[DataRequired()])
     left_eye_image = FileField('Left Eye Image', validators=[DataRequired()])
+    right_eye_diagnosis = StringField('Right Eye Diagnosis')
+    left_eye_diagnosis = StringField('Left Eye Diagnosis')
+    processed_right_eye_image = FileField('Processed Right Eye Image')
+    processed_left_eye_image = FileField('Processed Left Eye Image')
+    RightEye_prediction = StringField('Right Eye Prediction')
+    LeftEye_prediction = StringField('Left Eye Prediction')
+    
+    
     submit = SubmitField('Add Patient')
+
+
     def validate_patient_id(self, patient_id):
         patient = Patient.query.filter_by(patient_id=patient_id.data).first()
         if patient:
