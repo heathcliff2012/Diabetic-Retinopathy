@@ -13,6 +13,5 @@ torch
 torchvision 
 Pillow 
 efficientnet_pytorch
-json
 albumentations
 timm
