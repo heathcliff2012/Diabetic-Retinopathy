@@ -1,4 +1,65 @@
 {% extends "layout.html" %}
 {% block content %}
+<style>
+    .disc-bullets {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
 
+    h1 {
+        color: #2c3e50;
+        font-family: 'Arial', sans-serif;
+        margin-bottom: 5px;
+        font-size: 28px;
+        margin-left: 10px;
+    }
+    h2 {
+        margin-bottom: 5px;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+    ul.disc-bullets li {
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+    ol.disc-bullets li {
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
+</style>
+<div class="container mt-2 bg-teal-50 p-2">
+<h1><strong>About This Project</strong></h1>
+<p>The Silent Threat to Vision Diabetic Retinopathy (DR) damages retinal blood vessels. In its early stages, it presents *no symptoms*, allowing it to progress undetected until vision is irreversibly damaged.
+    Our AI Detects What the Eye Can't See our system is trained to identify the earliest, most subtle biomarkers of the disease, long before a human might notice them.</p>
+    <ul class="disc-bullets">
+        <li>Microaneurysms: Tiny bulges in blood vessels, the earliest sign of DR.</li>
+        <li>Hard Exudates: Lipid deposits indicating leaking blood vessels.</li>
+        <li>Hemorrhages: Small blood leaks within the retina.</li>
+    </ul>
+    <p>By catching these early indicators, our AI empowers timely intervention, helping to preserve vision and prevent blindness.</p>
+    <p>
+        <strong>Proprietary CNN Model</strong>
+        <br>
+        Trained on a diverse, international dataset of over *70,000 retinal images*, ensuring high accuracy across populations.
+        <br>
+        Utilizes advanced convolutional neural network (CNN) architecture optimized for medical image analysis.
+        <br>
+        <strong>Proven Performance</strong>
+        <br>
+        Achieves a consistent and validated overall accuracy of approximately *85%* in detecting referable diabetic retinopathy.
+    </p>
+<h2><strong>Team Members</strong></h2>
+<ol class="disc-bullets">
+    <li>Tharun R Gowda - Model Developer</li>
+    <li>Navaneeth Dange - Backend Developer</li>
+    <li>Ankit Singh - Frontend Developer</li>
+    <li>Shaijo Johnson - Frontend Developer</li>
+</ol>
+</div>
 {% endblock %}
