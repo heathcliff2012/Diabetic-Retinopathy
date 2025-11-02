@@ -1,4 +1,10 @@
-[project]
-name = "my-vercel-project"
-version = "0.1.0"
-requires-python = "==3.10.6"
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+ 
+[packages]
+flask = "*"
+ 
+[requires]
+python_version = "3.10.6"
