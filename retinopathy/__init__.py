@@ -3,11 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
+import dotenv
+dotenv.load_dotenv()
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '57635950a911328e254dd46f8f2e9e62'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SECRET_KEY'] = dotenv.get_key('.env', 'SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = dotenv.get_key('.env', 'SQLALCHEMY_DATABASE_URI')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

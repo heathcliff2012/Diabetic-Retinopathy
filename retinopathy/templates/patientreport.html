@@ -47,7 +47,7 @@
             </div>
             
             <div class="analysis-results border-b-2 pb-2 mb-2">
-                <h2 class="underline">Analysis Results</h2>
+                <h2 class="underline mb-3">Analysis Results</h2>
                 <span><strong>Left Eye Diagnosis:</strong> {{ patient.LeftEye_diagnosis }}</span>
                 <span class="ml-64 pl-64"><strong>Right Eye Diagnosis:</strong> {{ patient.RightEye_diagnosis }}</span>
                 <br>
@@ -55,7 +55,7 @@
                 <span class="ml-64 pl-32"><strong>Right Eye Confidence:</strong> {{ patient.RightEye_prediction }}</span>
             </div>
 
-            <h2>Original Eye Scans</h2>
+            <h2 class="underline">Original Eye Scans</h2>
             <div class="eye-images flex space-x-10">
                 <p><strong>Left Eye Image:</strong></p>
                 <img src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file) }}" alt="Left Eye Image" class="report-image">
@@ -64,7 +64,7 @@
                 <img src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file) }}" alt="Right Eye Image" class="report-image">
             </div>
             
-            <h2>Processed Images</h2>
+            <h2 class="underline">Processed Images</h2>
             <div class="processed_images flex space-x-10">
                 <p><strong>Processed Left Eye:</strong></p>
                 <img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file) }}" alt="Processed Left Eye" class="report-image">
@@ -75,8 +75,10 @@
         </div>
     </main>
 </div>
-    <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline;">
-        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+    <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline ;">
+        <div class="text-center width: 100%;">
+            <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
+        </div>
     </form>
 {% endblock content %}
 
