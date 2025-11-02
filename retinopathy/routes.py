@@ -99,7 +99,7 @@ eval_transforms = A.Compose([
 ])
 
 # --- 5. Define Your Class Names ---
-class_names = ['class_0', 'class_1', 'class_2', 'class_3', 'class_4'] # <-- REPLACE THIS with your 5 classes
+class_names = ['NO DR', 'Mild DR', 'Moderate DR', 'Severe DR', 'Proliferative DR'] # <-- REPLACE THIS with your 5 classes
 
 # --- 6. Prediction Function ---
 # In your utils.py or routes.py
