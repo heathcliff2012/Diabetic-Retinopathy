@@ -9,7 +9,6 @@ dotenv.load_dotenv('.env')
 
 app = Flask(__name__)
 
-port = dotenv.get_key('.env', 'PORT') or 5000
 app.config['SECRET_KEY'] = dotenv.get_key('.env', 'SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = dotenv.get_key('.env', 'SQLALCHEMY_DATABASE_URI')
 db = SQLAlchemy(app)
