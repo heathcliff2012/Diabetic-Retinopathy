@@ -6,7 +6,6 @@ from flask_migrate import Migrate
 import dotenv
 dotenv.load_dotenv('.env')
 
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = dotenv.get_key('.env', 'SECRET_KEY')
