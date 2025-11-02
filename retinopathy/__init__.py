@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
 import dotenv
-dotenv.config()
+dotenv.load_dotenv('.env')
 
 port = dotenv.get_key('.env', 'PORT') or 5000
 
