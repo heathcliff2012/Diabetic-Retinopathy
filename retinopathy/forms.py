@@ -52,6 +52,6 @@ class PatientForm(FlaskForm):
 
 
     def validate_patient_id(self, patient_id):
-        patient = Patient.query.filter_by(patient_id=patient_id.data).first()
-        if patient:
+        patient = Patient.query.filter_by(patient_id=patient_id.data, user_id=current_user.id).first()
+        if patient :
             raise ValidationError('Patient ID already exists. Please choose a different one.')
