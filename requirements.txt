@@ -16,3 +16,4 @@ efficientnet_pytorch
 albumentations
 timm
 gunicorn
+dotenv
