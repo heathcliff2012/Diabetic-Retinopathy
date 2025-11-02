@@ -37,7 +37,7 @@
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo -->
-                    <a href="#" data-page="home" class="flex-shrink-0 flex items-center">
+                    <a href="{{ url_for('home') }}" data-page="home" class="flex-shrink-0 flex items-center">
                         <!-- SVG Logo Icon (simple abstract shape) -->
                         <svg class="h-8 w-8 text-primary" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="currentColor"/>
@@ -49,54 +49,31 @@
                     <!-- Desktop Navigation -->
                     <div class="hidden md:flex md:items-center md:space-x-8">
                         <a href="{{ url_for('home') }}" data-page="home" class="font-medium text-gray-600 hover:text-primary transition">Home</a>
-                        <a href="#" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
-                        <a href="#" data-page="contact" class="font-medium text-gray-600 hover:text-primary transition">Contact</a>
+                        <a href="{{ url_for('about') }}" data-page="about" class="font-medium text-gray-600 hover:text-primary transition">About Us</a>
+                        <a href="#main-footer" data-page="contact" class="font-medium text-gray-600 hover:text-primary transition">Contact</a>
                     </div>
                     
                     <!-- Login Button & Mobile Menu Button -->
                      {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('login') }}" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
-                            Clinician Login
+                     <div class="flex  justify-center gap-10 ">
+                        <a href="{{ url_for('login') }}" data-page="patient-list" class="hidden md:inline-flex px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
+                            Login
                         </a>
-                        <a href="{{ url_for('register') }}" data-page="patient-list" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                        <a href="{{ url_for('register') }}" data-page="patient-list" class="hidden md:inline-flex px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
                              Register
                         </a>
+                    </div>
                     {% else %}
-                        <a href="{{ url_for('logout') }}" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark transition">
+                        <a href="{{ url_for('logout') }}" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-900 transition hover:scale-105">
                             Logout
                         </a>
                     {% endif %}
-                    
-                        <!-- Mobile Menu Button -->
-                        <button id="mobile-menu-button" type="button" class="md:hidden ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
-                            <!-- Hamburger Icon -->
-                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                            <!-- Close Icon (hidden by default) -->
-                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Mobile Menu (hidden by default) -->
-                <div id="mobile-menu" class="md:hidden hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <a href="{{ url_for('home') }}" data-page="home" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Home</a>
-                        <a href="#" data-page="about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">About Us</a>
-                        <a href="#" data-page="contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-primary-light hover:text-primary">Contact</a>
-                        <a href="{{ url_for('patient_history') }}" data-page="patient-list" class="block w-full text-left pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-white bg-secondary hover:bg-secondary-dark">Clinician Login</a>
-                    </div>
-                </div>
             </nav>
         </header>
         <main>
             {% block content %}{% endblock %}
         </main>
-        <footer id="main-footer" class="bg-gray-800 text-gray-300 mt-16">
+        <footer id="main-footer" class="bg-gray-800 text-gray-300 mt-2">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
                     <!-- Logo & Mission -->
@@ -112,19 +89,20 @@
                     <div>
                         <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Navigate</h3>
                         <ul class="mt-4 space-y-2">
-                            <li><a href="#" data-page="about" class="text-base text-gray-300 hover:text-white">About Us</a></li>
-                            <li><a href="#" data-page="contact" class="text-base text-gray-300 hover:text-white">Contact</a></li>
-                        </ul>
+                            <li><a href="{{ url_for('about') }}" data-page="about" class="text-base text-gray-300 hover:text-white">About Us</a></li>
                     </div>
                     <!-- Social -->
                     <div>
                         <h3 class="text-sm font-semibold text-gray-100 tracking-wider uppercase">Connect</h3>
-                        <div class="flex space-x-4 mt-4">
-                            <a href="#" class="text-gray-400 hover:text-white">
-                                <span class="sr-only">LinkedIn</span>
-                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <div class="flex gap-10 mt-1 pl-1 ">
+                            <a class="text-gray-400 hover:text-white">
+                                <svg class="h-6 w-6 mt-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
                                 </svg>
+                                <a href="https://www.linkedin.com/in/ankit-singh-a16a51334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="block">Ankit Singh</a>
+                                <a href="https://www.linkedin.com/in/shaijo-johnson-698a42334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="block">Shaijo Johnson</a>
+                                <a href="https://www.linkedin.com/in/h-navaneeth-dange-7b820b330?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="block">Navaneeth Dange</a>
+                                <a href="https://www.linkedin.com/in/tharun-944249366?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="block">Tharun Gowda</a>
                             </a>
                         </div>
                     </div>

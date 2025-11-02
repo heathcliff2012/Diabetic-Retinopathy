@@ -1,4 +1,4 @@
-from flask import render_template,url_for,flash,redirect,request,current_app
+from flask import render_template,url_for,flash,redirect,request,current_app,abort
 from retinopathy import app,db,bcrypt
 from retinopathy.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm
 from retinopathy.modules import User, Patient
@@ -189,6 +189,9 @@ def save_processed_picture(image_array):
 def home():
     return render_template('home.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -304,6 +307,15 @@ def analyze_image():
         return redirect(url_for('patient_report', patient_id=patient.patient_id))
 
     return render_template('scanpatient.html', title='Analyze Image', form=form)
+
+@app.route('/patient-report/<patient_id>/delete', methods=['POST'])
+@login_required
+def delete_post(patient_id):
+    patient = Patient.query.get_or_404(patient_id)
+    db.session.delete(patient)
+    db.session.commit()
+    flash('Post Deleted!', 'success')
+    return redirect(url_for('patient_history', patient_id=patient.patient_id,patient = patient))
 
 
 @app.route('/logout')
