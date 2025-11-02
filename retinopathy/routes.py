@@ -7,9 +7,6 @@ from retinopathy.efficientnet_b3 import model, preprocess_retina_image
 from PIL import Image
 import os
 import secrets
-
-import io
-import json
 from PIL import Image
 from flask import Flask, jsonify, request, render_template
 
