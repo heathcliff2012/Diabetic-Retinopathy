@@ -1,13 +1,8 @@
-try:
-    from retinopathy import app
-except Exception as e:
-    import sys
-    print("Failed to import 'app' from 'retinopathy' package:", e, file=sys.stderr)
-    raise
-
+from retinopathy import app
 import os
 
-debug = os.environ.get("DEBUG", "").lower() in ("1", "true", "yes")
+
+port = int(os.environ.get("PORT", 8080))
 
 
-if __name__ == '__main__':
+__name__ == '__main__'
