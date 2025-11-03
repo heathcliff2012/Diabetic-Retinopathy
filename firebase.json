@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "source": "functions"
+  },
+  "hosting": {
+    "public": "static",
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "myApiHandler" // IMPORTANT: Change this to your function's name
+      }
+    ]
+  }
+}
