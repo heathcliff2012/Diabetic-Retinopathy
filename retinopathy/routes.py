@@ -181,6 +181,11 @@ def save_processed_picture(image_array):
         print(f"Error saving processed picture: {e}")
         return None
 
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/about')
 def about():
     return render_template('about.html')
