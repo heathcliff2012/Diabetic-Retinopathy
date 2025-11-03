@@ -15,5 +15,3 @@ albumentations
 timm
 gunicorn
 python-dotenv
-
-PYTHON_VERSION == 3.10.6
