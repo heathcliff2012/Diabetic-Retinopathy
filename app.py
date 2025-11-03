@@ -2,7 +2,7 @@ from retinopathy import app
 import os
 
 
-port = int(os.environ.get("PORT", 8080))
+port = int(os.environ.get("PORT", 10001))
 
 
 if __name__ == '__main__':
