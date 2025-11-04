@@ -1,0 +1,21 @@
+# render.yaml
+services:
+  - type: web
+    name: retinopathy-flask
+    env: python
+    region: singapore  # or "singapore" / "frankfurt" based on your preference
+
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      chmod +x start.sh
+
+    startCommand: bash start.sh
+
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.10
+      - key: PORT
+        value: 10001
