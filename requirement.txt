@@ -7,7 +7,9 @@ Pillow
 requests
 python-dotenv
 gradio_client
-
+utils
 gunicorn
 WTForms
 gradio_client
+flask_migrate
+datetime
