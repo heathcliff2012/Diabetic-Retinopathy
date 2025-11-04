@@ -8,3 +8,4 @@ WTForms
 Pillow
 gunicorn
 python-dotenv
+gradio_client
