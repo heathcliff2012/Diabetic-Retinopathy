@@ -13,3 +13,4 @@ WTForms
 gradio_client
 flask_migrate
 datetime
+Flask
