@@ -192,8 +192,64 @@
             </div>
         {% endif %}
     </div>
-        {{ form.submit() }}
+        {{ form.submit() }} 
     </div>
+
+    <!-- Loader overlay shown after submitting until next page loads -->
+    <div id="submit-loader" style="display:none; position:fixed; inset:0; background:rgba(255,255,255,0.85); z-index:9999; align-items:center; justify-content:center; flex-direction:column; gap:12px; pointer-events:auto;">
+        <div aria-hidden="true" style="width:72px; height:72px; border:8px solid #e6e6e6; border-top-color:#007bff; border-radius:50%; animation:copilot-spin 1s linear infinite;"></div>
+        <div style="color:#333; font-weight:600;">Processing…</div>
+    </div>
+
+    <style>
+    @keyframes copilot-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    /* Ensure loader is hidden by default */
+    #submit-loader[hidden] { display: none !important; }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const loader = document.getElementById('submit-loader');
+        if (!form || !loader) return;
+
+        form.addEventListener('submit', function (e) {
+            // Show loader immediately
+            loader.style.display = 'flex';
+            // Prevent tab interaction while loading
+            loader.setAttribute('aria-hidden', 'false');
+
+            // Disable submit controls to prevent double-submit
+            const submits = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+            submits.forEach(btn => btn.disabled = true);
+
+            // Helpful cursor feedback
+            document.documentElement.style.cursor = 'wait';
+            document.body.style.cursor = 'wait';
+
+            // Let the browser continue with the normal submit/navigation.
+            // If client-side validation blocks submission, browser won't navigate and loader will remain,
+            // so hide the loader on 'invalid' events and restore controls.
+        });
+
+        // If the page stays (validation stopped submission), hide loader when an invalid event occurs
+        form.addEventListener('invalid', function (ev) {
+            // hide loader and re-enable submit controls
+            loader.style.display = 'none';
+            const submits = form.querySelectorAll('button[type="submit"], input[type="submit"]');
+            submits.forEach(btn => btn.disabled = false);
+            document.documentElement.style.cursor = '';
+            document.body.style.cursor = '';
+        }, true);
+
+        // When the page is shown again (back navigation) or load completes, ensure loader is hidden
+        window.addEventListener('pageshow', function () {
+            loader.style.display = 'none';
+            document.documentElement.style.cursor = '';
+            document.body.style.cursor = '';
+        });
+    });
+    </script>
 </form>
                 
         </main>
