@@ -4,7 +4,6 @@ from retinopathy import app,db,bcrypt
 from retinopathy.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm
 from retinopathy.modules import User, Patient
 from flask_login import login_user,current_user,logout_user, login_required
-from retinopathy.efficientnet_b3 import model, preprocess_retina_image
 from PIL import Image
 import os
 import secrets
