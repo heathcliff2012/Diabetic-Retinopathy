@@ -6,6 +6,8 @@ flask_wtf
 Pillow
 requests
 python-dotenv
+gradio_client
+
 gunicorn
 WTForms
 gradio_client
