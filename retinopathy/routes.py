@@ -263,7 +263,7 @@ def download_pdf_report(patient_id):
     patient = Patient.query.get_or_404(patient_id)
 
     # 2. Renders an HTML string
-    html_string = render_template('patientreport.html', patient=patient)
+    html_string = render_template('pdfreport.html', patient=patient)
 
     # 3. Generates the PDF in memory
     html_doc = HTML(string=html_string, base_url='.') 
@@ -272,9 +272,11 @@ def download_pdf_report(patient_id):
     # 4. Sends the PDF as a file download
     response = make_response(pdf_bytes)
     response.headers['Content-Type'] = 'application/pdf'
-    filename = f"patient_{patient.id}_report.pdf"
+    filename = f"patient_{patient_id}_report.pdf"
     response.headers['Content-Disposition'] = f'attachment; filename={filename}'
-    
+
+    print(f"Generated PDF report for patient ID: {patient_id}")
+
     return response
 
 @app.route('/logout')
