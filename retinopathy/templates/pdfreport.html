@@ -1,18 +1,39 @@
-<h3>Patient Retinal Scan</h3>
-<h4>Patient ID: {{ patient.patient_id }}</h4>
-<h4>Name: {{ patient.name }}</h4>
-<h4>Age: {{ patient.age }}</h4>
-<h4>Gender: {{ patient.sex }}</h4>
-<h4>Date of report: {{ patient.date_uploaded.strftime('%Y-%m-%d') }}</h4>
-<h4>Left Eye Diagnosis: {{ patient.LeftEye_prediction }}</h4>
-<h5>Left Eye Confidence Level: {{ patient.LeftEye_diagnosis }}</h5>
-<h4>Right Eye Diagnosis: {{ patient.RightEye_prediction }}</h4>
-<h5>Right Eye Confidence Level: {{ patient.RightEye_diagnosis }}</h5>
-<p>Filename: LeftEye</p>
-<img src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file, _external=True) }}" alt="Retinal Scan">
-<p>Filename: RightEye</p>
-<img src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file, _external=True) }}" alt="Retinal Scan">
-<p>Filename: processed RightEye</p>
-<img src="{{ url_for('static', filename='processed_images/' + patient.processed_RightEye_image_file, _external=True) }}" alt="Processed Retinal Scan">
-<p>Filename: processed LeftEye</p>
-<img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file, _external=True) }}" alt="Processed Retinal Scan">
+<style>
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .report-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  small{
+    font-weight: normal;
+  }
+</style>
+
+<h1>Patient Retinal Scan</h1>
+<h3>Patient ID:&nbsp;<small>{{ patient.patient_id }}</small></h3>
+<h3>Name:&nbsp;<small>{{ patient.name }}</small></h3>
+<h3>Age:&nbsp;<small>{{ patient.age }}</small></h3>
+<h3>Gender:&nbsp;<small>{{ patient.sex }}</small></h3>
+<h3>Date of report:&nbsp;<small>{{ patient.date_uploaded.strftime('%Y-%m-%d') }}</small></h3>
+<div class="image-grid">
+<h3>Left Eye Diagnosis:&nbsp;<small>{{ patient.LeftEye_prediction }}</small></h3>
+<h3>Right Eye Diagnosis:&nbsp;<small>{{ patient.RightEye_prediction }}</small></h3>
+</div>
+
+<div class="image-grid">
+    <p style="font-weight:700;"> Left Eye image
+<img style="width: 200px; height: 200px;" class="image-grid" src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file, _external=True) }}" alt="Retinal Scan"></p>
+<p style="font-weight: 700;"> Right Eye image
+<img style="width: 200px; height: 200px;" class="image-grid" src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file, _external=True) }}" alt="Retinal Scan"></p>
+<p style="font-weight: 700;"> Processed Left Eye image
+<img style="width: 200px; height: 200px;" class="image-grid" src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file, _external=True) }}" alt="Processed Retinal Scan"></p>
+<p style="font-weight: 700;"> Processed Right Eye image
+<img style="width: 200px; height: 200px;" class="image-grid" src="{{ url_for('static', filename='processed_images/' + patient.processed_RightEye_image_file, _external=True) }}" alt="Processed Retinal Scan"></p>
+</div>
