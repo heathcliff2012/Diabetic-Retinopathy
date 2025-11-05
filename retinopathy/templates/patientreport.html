@@ -37,7 +37,7 @@ main {
     min-height: calc(100vh - 64px - 4rem); /* Adjust based on header and padding */
 }
 </style>
-<div class="flex h-screen" style="height: calc(100vh - 64px);"> <!-- 64px is header height -->
+<div class="flex h-screen" style="height: calc(185vh - 64px);"> <!-- 64px is header height -->
             
             <!-- Sidebar Navigation -->
             <aside class="w-64 bg-white shadow-md hidden md:block">
@@ -45,7 +45,7 @@ main {
                     <h2 class="text-lg font-semibold text-gray-900">Welcome, {{ current_user.username }}</h2>
                 </div>
                 <nav class="mt-6">
-                    <a href="{{ url_for('analyze_image') }}" data-page="scan-patient" class="flex items-center px-6 py-3 bg-secondary-light text-secondary-dark font-medium">
+                    <a href="{{ url_for('analyze_image') }}" data-page="scan-patient" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-100">
                         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
                         <span class="ml-3">Scan New Patient</span>
                     </a>
@@ -104,9 +104,9 @@ main {
     </main>
 </div>
     <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline ;">
-        <div class="pl-64 ml-64 width: 100%;">
-            <span><button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
-                <button type="submit" class="btn bg-green-800 btn-lg" onclick="window.history.back();">Download</button></span>
+        <div class="pl-64 ml-64">
+            <span><button type="submit" class="btn bg-red-500 hover:bg-red-700 hover:scale-105 font-semibold text-white btn-lg" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button></span>
+            <span class="pl-8"><button type="submit" class="btn bg-green-600 hover:bg-green-900 hover:scale-105 font-semibold text-white btn-lg" onclick="window.history.back();">Download</button></span>
         </div>
     </form>
 {% endblock content %}
