@@ -175,13 +175,25 @@ def patient_report(patient_id):
 	return render_template('patientreport.html', patient=patient, patient_id=patient_id)
 
 def save_picture(form_picture):
-	random_hex = secrets.token_hex(8)
-	_, f_ext = os.path.splitext(form_picture.filename)
-	picture_fn = random_hex + f_ext
-	picture_path = os.path.join(app.root_path, 'static/Eye_pictures', picture_fn)
-	i = Image.open(form_picture)
-	i.save(picture_path)
-	return picture_fn
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    
+    # ✅ Define folder path
+    folder_path = os.path.join(app.root_path, 'static/Eye_pictures')
+    
+    # ✅ Create the directory if it doesn't exist
+    os.makedirs(folder_path, exist_ok=True)
+    
+    # ✅ Full path to save the image
+    picture_path = os.path.join(folder_path, picture_fn)
+
+    # ✅ Save the uploaded image safely
+    i = Image.open(form_picture)
+    i.save(picture_path)
+
+    return picture_fn
+
 
 
 # Make sure you've imported request
