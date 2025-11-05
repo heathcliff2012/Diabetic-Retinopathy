@@ -92,7 +92,7 @@ main {
             </div>
             
             <h2 class="underline">Processed Images</h2>
-            <div class="processed_images grid grid-cols-2 gap-0 mb-2 display: flex; space-x-10 ">
+            <div class="processed_images grid grid-cols-2 gap-0 mb-2 display: flex; ">
                 <p><strong>Processed Left Eye:</strong>
                 <img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file) }}" alt="Processed Left Eye" class="w-80 h-auto"></p>
 
@@ -103,11 +103,11 @@ main {
         
     </main>
 </div>
-    <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline ;">
-        <div class="pl-64 ml-64">
+    <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline ;" class="pl-64 ml-64">
             <span><button type="submit" class="btn bg-red-500 hover:bg-red-700 hover:scale-105 font-semibold text-white btn-lg" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button></span>
-            <span class="pl-8"><button type="submit" class="btn bg-green-600 hover:bg-green-900 hover:scale-105 font-semibold text-white btn-lg" onclick="window.history.back();">Download</button></span>
-        </div>
+    </form>
+    <form action="{{ url_for('download_pdf_report', patient_id = patient.patient_id )}}" method="GET" style="display:inline ;" class="pl-4">
+            <span><button type="submit" class="btn bg-green-600 hover:bg-green-900 hover:scale-105 font-semibold text-white btn-lg">Download</button></span>
     </form>
 {% endblock content %}
 
