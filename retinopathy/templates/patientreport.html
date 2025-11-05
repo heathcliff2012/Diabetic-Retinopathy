@@ -34,10 +34,10 @@
         margin: 0.5em 0;
     }
 </style>
-    <div class="container">
+    <div class="container mx-auto px-4">
     <main>
         <h1 class="mt-6 flex font-semibold">Patient Report</h1>
-        <div class="report-section">
+        <div class="report-section ml=auto mr-auto p-6 bg-white rounded-lg shadow-md">
             <div class="patient-info border-b-2 pb-2 mb-2">
                 <h2 class="underline">Patient Information</h2>
                 <p><strong>Name:</strong> {{ patient.name }}</p>
@@ -46,37 +46,40 @@
                 <p><strong>Report Date:</strong> {{ patient.date_uploaded.strftime('%Y-%m-%d') }}</p>
             </div>
             
-            <div class="analysis-results border-b-2 pb-2 mb-2">
+            
+            <div class="grid grid-cols-2 gap-1 mb-1 patient-analysis">
                 <h2 class="underline mb-3">Analysis Results</h2>
-                <span><strong>Left Eye Diagnosis:</strong> {{ patient.LeftEye_diagnosis }}</span>
-                <span class="ml-64 pl-32"><strong>Right Eye Diagnosis:</strong> {{ patient.RightEye_diagnosis }}</span>
                 <br>
-                <span><strong>Left Eye Confidence:</strong> {{ patient.LeftEye_prediction }}</span>
-                <span class="ml-64 pl-32"><strong>Right Eye Confidence:</strong> {{ patient.RightEye_prediction }}</span>
+                <p><strong>Left Eye Confidence:</strong> {{ patient.LeftEye_diagnosis }}</p>
+                
+                <p class=""><strong>Right Eye Confidence:</strong> {{ patient.RightEye_diagnosis }}</p>
+                
+                <p><strong>Left Eye Diagnosis:</strong> {{ patient.LeftEye_prediction }}</p>
+                <p class=""><strong>Right Eye Diagnosis:</strong> {{ patient.RightEye_prediction }}</p>
             </div>
 
             <h2 class="underline">Original Eye Scans</h2>
-            <div class="eye-images flex space-x-10">
-                <p><strong>Left Eye Image:</strong></p>
-                <img src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file) }}" alt="Left Eye Image" class="report-image">
+            <div class="eye-images grid grid-cols-2 gap-2 mb-2 display: flex; space-x-10;">
+                <p><strong>Left Eye Image:</strong>
+                <img src="{{ url_for('static', filename='Eye_pictures/' + patient.LeftEye_image_file) }}" alt="Left Eye Image" class=" w-80 h-auto"></p>
 
-                <p><strong>Right Eye Image:</strong></p>
-                <img src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file) }}" alt="Right Eye Image" class="report-image">
+                <p><strong>Right Eye Image:</strong>
+                <img src="{{ url_for('static', filename='Eye_pictures/' + patient.RightEye_image_file) }}" alt="Right Eye Image" class=" w-80 h-auto"></p>
             </div>
             
             <h2 class="underline">Processed Images</h2>
-            <div class="processed_images flex space-x-10">
-                <p><strong>Processed Left Eye:</strong></p>
-                <img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file) }}" alt="Processed Left Eye" class="report-image">
+            <div class="processed_images grid grid-cols-2 gap-2 mb-2 display: flex; space-x-10 ">
+                <p><strong>Processed Left Eye:</strong>
+                <img src="{{ url_for('static', filename='processed_images/' + patient.processed_LeftEye_image_file) }}" alt="Processed Left Eye" class="w-80 h-auto"></p>
 
-                <p><strong>Processed Right Eye:</strong></p>
-                <img src="{{ url_for('static', filename='processed_images/' + patient.processed_RightEye_image_file) }}" alt="Processed Right Eye" class="report-image">           
+                <p><strong>Processed Right Eye:</strong>
+                <img src="{{ url_for('static', filename='processed_images/' + patient.processed_RightEye_image_file) }}" alt="Processed Right Eye" class="w-80 h-auto"> </p>          
             </div>
         </div>
     </main>
 </div>
     <form action="{{ url_for('delete_post', patient_id = patient.patient_id )}}" method="POST" style="display:inline ;">
-        <div class="text-center width: 100%;">
+        <div class="pl-64 ml-64 width: 100%;">
             <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to delete this post?');">Delete</button>
         </div>
     </form>
