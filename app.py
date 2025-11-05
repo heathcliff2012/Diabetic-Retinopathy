@@ -5,4 +5,4 @@ dotenv.load_dotenv()
 port = dotenv.get_key('.env', 'PORT')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(port), debug=True)
+    app.run(debug=True)
