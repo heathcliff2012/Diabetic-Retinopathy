@@ -1,0 +1,27 @@
+# Start from a slim Python base image
+FROM python:3.10-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# 1. THE FIX: Install the C libraries WeasyPrint needs
+# This is the "production" version of running the GTK installer on Windows
+RUN apt-get update && apt-get install -y \
+    libgobject-2.0-0 \
+    libpango-1.0-0 \
+    libcairo2 \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2. Copy your Python requirements and install them
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 3. Copy the rest of your application code into the container
+COPY . .
+
+# 4. Set the command to run your app (using gunicorn for production)
+# Make sure "gunicorn" is in your requirements.txt
+# Replace "your_app" with the name of your main Python file/module
+# (e.g., app:app or retinopathy:app)
+CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]

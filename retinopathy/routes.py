@@ -1,5 +1,7 @@
 from xmlrpc import client
-from flask import render_template,url_for,flash,redirect,request,current_app,abort
+from flask import make_response, render_template, send_file,url_for,flash,redirect,request,current_app,abort
+import pdfkit
+from weasyprint import HTML
 from retinopathy import app,db,bcrypt
 from retinopathy.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm
 from retinopathy.modules import User, Patient
@@ -252,8 +254,30 @@ def delete_post(patient_id):
 	db.session.delete(patient)
 	db.session.commit()
 	flash('Post Deleted!', 'success')
-	return redirect(url_for('patient_history', patient_id=patient.patient_id,patient = patient))
+	return redirect(url_for('patient_history', patient_id=patient.patient_id, patient=patient))
 
+@app.route('/patient-report/<patient_id>/download')
+@login_required
+def download_pdf_report(patient_id):
+    # 1. Fetches patient from DB
+    patient = Patient.query.get_or_404(patient_id)
+
+    # 2. Renders an HTML string
+    html_string = render_template('pdfreport.html', patient=patient)
+
+    # 3. Generates the PDF in memory
+    html_doc = HTML(string=html_string, base_url='.') 
+    pdf_bytes = html_doc.write_pdf()
+
+    # 4. Sends the PDF as a file download
+    response = make_response(pdf_bytes)
+    response.headers['Content-Type'] = 'application/pdf'
+    filename = f"patient_{patient_id}_report.pdf"
+    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+
+    print(f"Generated PDF report for patient ID: {patient_id}")
+
+    return response
 
 @app.route('/logout')
 def logout():
