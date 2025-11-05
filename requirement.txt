@@ -16,3 +16,4 @@ datetime
 Flask
 email_validator
 WeasyPrint
+pdfkit
